@@ -8,13 +8,21 @@ angular.module('tophemanDatavizApp')
           var channelsDescription;
 
           var state = {
-            iddle: true,
+            disconneted: true,
             connecting: false,
-            connected: false
+            connected: false,
+            twitter: {
+              disconneted: true,
+              connecting: false,
+              connected: false
+            }
           };
 
           function initSocket() {
             socket = io();
+            socket.on('connected',function(data){
+              console.log('connected',data);
+            })
           }
           console.log('initSocket');
           initSocket();

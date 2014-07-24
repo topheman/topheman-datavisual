@@ -358,6 +358,10 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.client %>',
         dest: '.tmp/',
         src: ['{app,components}/**/*.css']
+      },
+      localEnv: {
+        src: 'server/config/local.env.default.js',
+        dest: 'server/config/local.env.js'
       }
     },
 
@@ -617,6 +621,10 @@ module.exports = function (grunt) {
     'uglify',
     'rev',
     'usemin'
+  ]);
+  
+  grunt.registerTask('init', [
+    'copy:localEnv'
   ]);
 
   grunt.registerTask('default', [

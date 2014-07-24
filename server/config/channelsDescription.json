@@ -1,0 +1,17 @@
+[
+  {
+    "displayName": "Programming languages",
+    "channelName": "languages",
+    "track": ["javascript","php","perl","python"]
+  },
+  {
+    "displayName": "Javascript frameworks",
+    "channelName": "js-frameworks",
+    "track": ["angularjs", "jquery", "backbone", "emberjs"]
+  },
+  {
+    "displayName": "HTML5",
+    "channelName": "web",
+    "track": ["javascript", "nodejs", "html5", "css","angularjs"]
+  }
+]

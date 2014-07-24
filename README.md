@@ -12,5 +12,5 @@ topheman-dataviz
 
 * npm install
 * bower install
-* grunt init to create the server/config/local.env.js (todo)
+* grunt init to create the server/config/local.env.js - set your twitter credentials there
 * grunt serve - you're good to go

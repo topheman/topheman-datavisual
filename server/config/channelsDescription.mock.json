@@ -1,0 +1,17 @@
+[
+  {
+    "displayName": "Colors",
+    "channelName": "colors",
+    "track": ["blue","white","yellow","green","orange"]
+  },
+  {
+    "displayName": "Fruits",
+    "channelName": "fruits",
+    "track": ["kiwi", "orange", "apple", "lemon", "coconut"]
+  },
+  {
+    "displayName": "Star Wars",
+    "channelName": "starWarsCharacters",
+    "track": ["Luke", "Leia", "Han", "Yoda"]
+  }
+]
