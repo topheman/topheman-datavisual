@@ -2,4 +2,6 @@
 
 // Development specific configuration
 // ==================================
-module.exports = {};
+module.exports = {
+  twitterStreamTimeout : 30000//2mins
+};

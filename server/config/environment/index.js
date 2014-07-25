@@ -26,7 +26,7 @@ var all = {
     session: process.env.SESSION_SECRET || 'topheman-dataviz-secret'
   },
   
-  twitterStreamTimeout : 54000 //15minutes - a twiiter stream can only stay opened 15minutes - so if no sockets are opened when this delay is expired, don't relaunch a stream
+  twitterStreamTimeout : 880000 //15minutes (little less) - a twiiter stream can only stay opened 15minutes - so if no sockets are opened when this delay is expired, don't relaunch a stream
 
 };
 
