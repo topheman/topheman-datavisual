@@ -24,7 +24,9 @@ var all = {
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
     session: process.env.SESSION_SECRET || 'topheman-dataviz-secret'
-  }
+  },
+  
+  twitterStreamTimeout : 54000 //15minutes - a twiiter stream can only stay opened 15minutes - so if no sockets are opened when this delay is expired, don't relaunch a stream
 
 };
 

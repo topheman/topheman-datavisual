@@ -1,21 +1,26 @@
 var SocketsManager = function(io, twitterStreamManager){
 
-  this.io = io;
-  this.twitterStreamManager = twitterStreamManager;
-  this.sockets = {};
+  var sockets = {};
   
-  var that = this;
-  
+  //handle basic socket connection / disconnection
   io.on('connection',function(socket){
     console.log('>connection from browser to socket',socket.id);
-    that.sockets[socket.id] = {
+    sockets[socket.id] = {
       "time" : (new Date()).getTime(),
       "socket" : socket
     };
-    socket.emit('connected', that.twitterStreamManager.getDescriptionChannels());
+    socket.emit('connected', twitterStreamManager.getDescriptionChannels());
     socket.on('disconnect',function(){
-      delete that.sockets[socket.id];
-      console.log(socket.id, 'disconnect',Object.keys(that.sockets).length+'sockets opened');
+      delete sockets[socket.id];
+      console.log(socket.id, 'disconnect',Object.keys(sockets).length+'sockets opened');
+    });
+  });
+  
+  //launch twitter stream and relay its event to the sockets
+  console.log('before launch');
+  twitterStreamManager.launch(function(stream){
+    stream.on('channels',function(tweet){
+      io.emit('data',{text:tweet.text});
     });
   });
   

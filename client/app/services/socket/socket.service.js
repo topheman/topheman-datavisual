@@ -22,7 +22,10 @@ angular.module('tophemanDatavizApp')
             socket = io();
             socket.on('connected',function(data){
               console.log('connected',data);
-            })
+            });
+            socket.on('data',function(data){
+              console.log('tweet',data.text);
+            });
           }
           console.log('initSocket');
           initSocket();

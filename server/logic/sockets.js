@@ -2,6 +2,7 @@ var SocketsManager = require('./sockets/SocketsManager');
 var TwitterStreamManager = require('./sockets/TwitterStreamManager');
 
 module.exports.launch = function(io){
+  console.log('mock',process.env.mock);
   var twitterStreamManager = new TwitterStreamManager({
     "consumer_key": process.env.consumer_key,
     "consumer_secret": process.env.consumer_secret,
