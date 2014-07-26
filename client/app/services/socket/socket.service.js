@@ -26,6 +26,10 @@ angular.module('tophemanDatavizApp')
             socket.on('data',function(data){
               console.log('tweet',data.text);
             });
+            socket.on('inactive-socket',function(data){
+              console.log(data.msg);
+              socket.disconnect();
+            });
           }
           console.log('initSocket');
           initSocket();

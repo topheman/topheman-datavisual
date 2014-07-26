@@ -3,5 +3,7 @@
 // Development specific configuration
 // ==================================
 module.exports = {
-  twitterStreamTimeout : 30000//2mins
+  twitterStreamTimeout : 120000,//2mins
+  socketMaxAge : 40000,
+  cleanSocketsDelay : 11000,
 };
