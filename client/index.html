@@ -21,13 +21,22 @@
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
-  <body ng-app="tophemanDatavizApp">
+  <body ng-app="tophemanDatavizApp" class="container">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
+    
+    <header ng-include="'components/header/header.html'"></header>
+    
     <!-- Add your site or application content here -->
     <div ng-view=""></div>
+
+    <footer class="footer">
+      <div class="container">
+          <p><a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
+             <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+      </div>
+    </footer>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -61,10 +70,9 @@
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
-          <script src="app/main/main.controller.js"></script>
-          <script src="app/main/main.js"></script>
+          <script src="app/controllers/main/main.controller.js"></script>
           <script src="app/services/socket/socket.service.js"></script>
-          <script src="components/navbar/navbar.controller.js"></script>
+          <script src="components/header/header.controller.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
 </body>

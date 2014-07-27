@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tophemanDatavizApp')
-  .controller('NavbarCtrl', function ($scope, $location) {
+  .controller('HeaderCtrl', function ($scope,$location) {
     $scope.menu = [{
       'title': 'Home',
       'link': '/'
