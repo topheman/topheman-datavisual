@@ -10,8 +10,7 @@ module.exports = {
   "consumer_key": "",
   "consumer_secret": "",
   "access_token": "",
-  "access_token_secret": "",
-  "mock": false
+  "access_token_secret": ""
   // Control debug level for modules using visionmedia/debug
   // DEBUG: ""
 };

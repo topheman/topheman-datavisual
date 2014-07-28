@@ -1,17 +1,19 @@
 var TwitterStreamChannels;
-var twitterStreamTimeout = require('../../config/environment').twitterStreamTimeout;
+var config = require('../../config/environment');
+var twitterStreamTimeout = config.twitterStreamTimeout;
 
 var TwitterStreamManager = function(options){
   this.options = options;
   this.client;
-  if(this.options.mock === "true"){
-    console.log('using twitter-stream-channels mocked');
+  if(this.options.mock === true){
+    console.log('using twitter-stream-channels MOCKED');
     //@todo specify a file for mock via options.tweets and options.singleRun = false
     options.singleRun = false;
+    options.tweetDelay = config.mockTweetDelay;
     TwitterStreamChannels = require('../../../../twitter-stream-channels/main').getMockedClass();
   }
   else{
-    console.log('using twitter-stream-channels real');
+    console.log('using twitter-stream-channels REAL ONLINE');
     TwitterStreamChannels = require('../../../../twitter-stream-channels/main');
   }
   this.client = new TwitterStreamChannels(options);
@@ -22,7 +24,7 @@ var TwitterStreamManager = function(options){
  * @returns {Object}
  */
 TwitterStreamManager.prototype.getDescriptionChannels = function(){
-  if(this.options.mock === "true"){
+  if(this.options.mock === true){
     return require('../../config/channelsDescription.mock.json');
   }
   else{

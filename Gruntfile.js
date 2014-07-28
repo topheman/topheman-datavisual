@@ -418,6 +418,9 @@ module.exports = function (grunt) {
     },
 
     env: {
+      "dev-online" : {
+        NODE_ENV: 'development-online'
+      },
       test: {
         NODE_ENV: 'test'
       },
@@ -539,6 +542,23 @@ module.exports = function (grunt) {
         'bowerInstall',
         'autoprefixer',
         'concurrent:debug'
+      ]);
+    }
+    
+    if (target === 'online') {
+      return grunt.task.run([
+        'clean:server',
+        'env:all',
+        'env:dev-online',
+        'injector:sass', 
+        'concurrent:server',
+        'injector',
+        'bowerInstall',
+        'autoprefixer',
+        'express:dev',
+        'wait',
+        'open',
+        'watch'
       ]);
     }
 
