@@ -4,7 +4,8 @@ angular.module('tophemanDatavizApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'btford.socket-io'
 ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider

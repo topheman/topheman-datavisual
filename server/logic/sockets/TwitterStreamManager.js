@@ -41,8 +41,8 @@ TwitterStreamManager.prototype.getStreamChannelsTrackOptions = function(){
   }
   else{
     this.streamChannelsTrackOptions = {};
-    this.getDescriptionChannels().forEach(function(item){
-      that.streamChannelsTrackOptions[item.channelName] = item.track;
+    this.getDescriptionChannels().forEach(function(item,i){
+      that.streamChannelsTrackOptions[i] = item.track;
     });
     return this.streamChannelsTrackOptions;
   }

@@ -6,4 +6,7 @@ angular.module('tophemanDatavizApp')
       name : "world",
       info : "hello"
     }];
+    
+    $scope.data = socket.getData();
+    
   });

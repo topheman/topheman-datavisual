@@ -1,17 +1,17 @@
 [
   {
-    "displayName": "Programming languages",
-    "channelName": "languages",
+    "title" : "Programming languages",
+    "description" : "",
     "track": ["javascript","php","perl","python"]
   },
   {
-    "displayName": "Javascript frameworks",
-    "channelName": "js-frameworks",
+    "title" : "Javascript frameworks",
+    "description" : "",
     "track": ["angularjs", "jquery", "backbone", "emberjs"]
   },
   {
-    "displayName": "HTML5",
-    "channelName": "web",
+    "title": "HTML5",
+    "description" : "",
     "track": ["javascript", "nodejs", "html5", "css","angularjs"]
   }
 ]

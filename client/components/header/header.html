@@ -12,4 +12,7 @@
   <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
     <a ng-href="{{item.link}}">{{item.title}}</a>
   </li>
+  <li ng-repeat="item in channelsMenu" ng-class="{active: isActive(item.link)}">
+    <a ng-href="{{item.link}}">{{item.title}}</a>
+  </li>
 </ul>
