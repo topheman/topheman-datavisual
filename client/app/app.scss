@@ -1,3 +1,6 @@
+@import '_variables';
+
+$brand-primary : #900000;
 $icon-font-path: "/bower_components/bootstrap-sass-official/vendor/assets/fonts/bootstrap/";
 $fa-font-path: "/bower_components/font-awesome/fonts";
 
@@ -22,7 +25,18 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
     }
 }
 
+section{
+  margin-top: 10px;
+}
+
+footer.footer {
+  opacity: 0.85;
+  font-size: 80%;
+}
+
 // Component styles are injected through grunt
 // injector
+@import '_variables.scss';
 @import 'controllers/main/main.scss';
+@import 'header/header.scss';
 // endinjector

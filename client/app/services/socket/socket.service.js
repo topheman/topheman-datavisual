@@ -2,26 +2,26 @@
 
 angular.module('tophemanDatavizApp')
         .service('socket', function() {
+  
+          var STATE_DISCONNECTED = 'disconnected';
+          var STATE_CONNECTING = 'connecting';
+          var STATE_CONNECTED = 'connected';
 
           var socket;
           var data = [];
           var channelsDescription;
 
           var state = {
-            disconneted: true,
-            connecting: false,
-            connected: false,
-            twitter: {
-              disconneted: true,
-              connecting: false,
-              connected: false
-            }
+            socket : STATE_DISCONNECTED,
+            twitter : STATE_DISCONNECTED
           };
 
           function initSocket() {
             socket = io();
             socket.on('connected',function(data){
               console.log('connected',data);
+              state.socket = STATE_CONNECTED;
+              state.twitter = data.twitterState;
             });
             socket.on('data',function(data){
               console.log('tweet',data.text);

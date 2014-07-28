@@ -1,3 +1,13 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header pull-left">
+      <a class="navbar-brand logo" ng-href="/">Topheman Datavizualisation<br><span class="badge"></span></a>
+    </div>
+    <div class="navbar-header pull-right">
+      <p>This will be a short description</p>
+    </div>
+  </div>
+</nav>
 <ul class="nav nav-pills" ng-controller="HeaderCtrl">
   <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
     <a ng-href="{{item.link}}">{{item.title}}</a>

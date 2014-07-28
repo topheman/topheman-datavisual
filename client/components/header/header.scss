@@ -1,0 +1,9 @@
+header .container-fluid{
+  max-width:768px;
+}
+header nav.navbar {
+  min-height: $navbar-height;
+}
+header ul.nav {
+  margin-top : $navbar-height + 10px;
+}
