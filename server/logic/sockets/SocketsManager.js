@@ -68,7 +68,10 @@ var SocketsManager = function(io, twitterStreamManager){
       for(var socketId in sockets){
         if(sockets[socketId].time + socketMaxAge < time){
           console.log('>socket '+socketId+' inactive for '+(time - sockets[socketId].time)+'ms - disconnecting it'+' '+(new Date()));
-          sockets[socketId].socket.emit('inactive-socket',{msg:"You have been inactive for "+(time - sockets[socketId].time)+"ms, you have been disconnected, please refresh your page."});
+          sockets[socketId].socket.emit('inactive-socket',{
+            msg:"You have been inactive for "+(time - sockets[socketId].time)+"ms, you have been disconnected, please refresh your page.",
+            timeout : (time - sockets[socketId].time)
+          });
         }
       }
       cleanSocketsTimer = setTimeout(cleanSockets,cleanSocketsDelay);

@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: socket', function () {
+describe('Service: persistance', function () {
 
   // load the service's module
   beforeEach(module('tophemanDatavizApp'));
 
   // instantiate service
   var tweets;
-  beforeEach(inject(function (_socket_) {
-    socket = _socket_;
+  beforeEach(inject(function (_persistance_) {
+    persistance = _persistance_;
   }));
 
   it('should do something', function () {
-    expect(!!socket).toBe(true);
+    expect(!!persistance).toBe(true);
   });
 
 });

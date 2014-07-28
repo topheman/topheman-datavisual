@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('tophemanDatavizApp')
-        .service('socket', function(socketFactory, $rootScope) {
+        .service('persistance', function(socketFactory, $rootScope) {
   
           var STATE_DISCONNECTED = 'disconnected';
           var STATE_CONNECTING = 'connecting';
@@ -17,36 +17,38 @@ angular.module('tophemanDatavizApp')
             twitter : STATE_DISCONNECTED
           };
           
-          /**
-           * Safe $rootScope.$apply which check for $apply or $digest phase before
-           * 
-           * @param {Function} fn
-           * @returns {undefined}
-           */
-          var rootScopeSafeApply = function(fn) {
-            var phase = $rootScope.$$phase;
-            if (phase === '$apply' || phase === '$digest') {
-              if (fn && (typeof (fn) === 'function')) {
-                fn();
-              }
-            } else {
-              $rootScope.$apply(fn);
-            }
-          };
-          
+          //once the client connected
           _socket.on('connected',function(msg){
             console.log('connected',msg);
             _channelsDescription = msg.channelsDescription;
             _state.socket = STATE_CONNECTED;
             _state.twitter = msg.twitterState;
           });
+          
+          //event emitted from the server when a client has been inactive too long
+          _socket.on('inactive-socket',function(msg){
+            console.warn(msg.msg, "Inactive for "+msg.timeout+"ms");
+            _socket.disconnect();
+          });
+          
+          //events to keep track of the state of the twitter stream on the server behing the websocket
+          _socket.on('twitter:connect',function(msg){
+            console.log('twitter:connect',msg);
+            _state.twitter = msg.twitterState;
+          });
+          _socket.on('twitter:connected',function(msg){
+            console.log('twitter:connected',msg);
+            _state.twitter = msg.twitterState;
+          });
+          _socket.on('twitter:disconnect',function(msg){
+            console.log('twitter:disconnect',msg);
+            _state.twitter = msg.twitterState;
+          });
+          
+          //update on each postprocessed tweet
           _socket.on('data',function(msg){
             console.log('tweet',msg.text);
             _data.count++;
-          });
-          _socket.on('inactive-socket',function(msg){
-            console.warn(msg.msg);
-            _socket.disconnect();
           });
 
           var getData = function() {

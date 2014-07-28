@@ -1,12 +1,12 @@
 'use strict';
 
 angular.module('tophemanDatavizApp')
-  .controller('MainCtrl', function ($scope, socket) {
+  .controller('MainCtrl', function ($scope, persistance) {
     $scope.awesomeThings = [{
       name : "world",
       info : "hello"
     }];
     
-    $scope.data = socket.getData();
+    $scope.data = persistance.getData();
     
   });
