@@ -52,7 +52,7 @@ var SocketsManager = function(io, twitterStreamManager){
       io.emit('twitter:connected',{twitterState:twitterState});
     });
     stream.on('channels',function(tweet){
-      io.emit('data',{text:tweet.text,twitterState:twitterState});
+      io.emit('data',tweet);
     });
   };
   

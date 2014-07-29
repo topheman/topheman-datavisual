@@ -7,5 +7,5 @@ module.exports = {
 //  socketMaxAge : 300000,
 //  cleanSocketsDelay : 60000,
   mock : true,
-  mockTweetDelay : 500
+  mockTweetDelay : 200
 };

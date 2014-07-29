@@ -1,6 +1,12 @@
 <section>
-  <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte po</p>
-  <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte po</p>
-  <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un peintre anonyme assembla ensemble des morceaux de texte po</p>
-  <p>Tweet count : {{data.count}}</p>
+  <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.</p>
+
+  <div ng-repeat="channel in data.channelsDescription">
+    <h4>{{channel.title}}</h4>
+    <p>{{data.channels[$index].count}} tweets</p>
+    <ul>
+      <li ng-repeat="keyword in data.channels[$index].keywords">"{{keyword.name}}" found {{keyword.count}} times</li>
+    </ul>
+    <hr>
+  </div>
 </section>

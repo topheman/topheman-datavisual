@@ -9,7 +9,7 @@ angular.module('tophemanDatavizApp')
   
     persistance.getSocket().on('connected',function(){
   
-      $scope.channelsMenu = persistance.getChannelsDescription().map(function(item,i){
+      $scope.channelsMenu = persistance.getData().channelsDescription.map(function(item,i){
         return {
           'title' : item.title,
           'link' : '/category/'+i

@@ -7,11 +7,14 @@ angular.module('tophemanDatavizApp')
           var STATE_CONNECTING = 'connecting';
           var STATE_CONNECTED = 'connected';
           
+          var lastTweetsMaxlength = 10;
+          
           var _socket = socketFactory();
           var _data = {
-            count : 0
+            count : 0,
+            channels:{},
+            channelsDescription : []
           };
-          var _channelsDescription = [];
           var _state = {
             socket : STATE_DISCONNECTED,
             twitter : STATE_DISCONNECTED
@@ -20,7 +23,8 @@ angular.module('tophemanDatavizApp')
           //once the client connected
           _socket.on('connected',function(msg){
             console.log('connected',msg);
-            _channelsDescription = msg.channelsDescription;
+            _data.channelsDescription = msg.channelsDescription;
+            _initData();
             _state.socket = STATE_CONNECTED;
             _state.twitter = msg.twitterState;
           });
@@ -47,16 +51,41 @@ angular.module('tophemanDatavizApp')
           
           //update on each postprocessed tweet
           _socket.on('data',function(msg){
-            console.log('tweet',msg.text);
+            var channelId, i, keyword;
+            console.log(msg.text);
+            //feed channels infos
+            for(channelId in msg.$channels){
+              _data.channels[channelId].count++;
+              _data.channels[channelId].lastTweets = [msg].concat(_data.channels[channelId].lastTweets);
+              if(_data.channels[channelId].lastTweets.length > lastTweetsMaxlength){
+                _data.channels[channelId].lastTweets.pop();
+              }
+              for(i=0; i<msg.$channels[channelId].length; i++){
+                if(typeof _data.channels[channelId].keywords[msg.$channels[channelId][i]] === 'undefined'){
+                  _data.channels[channelId].keywords[msg.$channels[channelId][i]] = {
+                    count:0,
+                    name : msg.$channels[channelId][i]
+                  };
+                }
+                _data.channels[channelId].keywords[msg.$channels[channelId][i]].count++;
+              }
+            }
             _data.count++;
           });
+          
+          var _initData = function(){
+            var channelId;
+            for(channelId in _data.channelsDescription){
+              _data.channels[channelId] = {
+                lastTweets : [],
+                keywords : {},
+                count : 0
+              };
+            }
+          };
 
           var getData = function() {
             return _data;
-          };
-
-          var getChannelsDescription = function() {
-            return _channelsDescription;
           };
 
           var getState = function() {
@@ -70,8 +99,7 @@ angular.module('tophemanDatavizApp')
           return {
             getSocket : getSocket,
             getData: getData,
-            getState: getState,
-            getChannelsDescription: getChannelsDescription
+            getState: getState
           };
 
         });
