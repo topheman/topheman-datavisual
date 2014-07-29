@@ -1,7 +1,9 @@
 'use strict';
 
 angular.module('tophemanDatavizApp')
-        .service('persistance', function(socketFactory, $rootScope) {
+        .service('persistance', function(socketFactory, $rootScope, $q) {
+          
+          var deferred = $q.defer();
   
           var STATE_DISCONNECTED = 'disconnected';
           var STATE_CONNECTING = 'connecting';
@@ -23,6 +25,7 @@ angular.module('tophemanDatavizApp')
           //once the client connected
           _socket.on('connected',function(msg){
             console.log('connected',msg);
+            deferred.resolve('init');
             _data.channelsDescription = msg.channelsDescription;
             _initData();
             _state.socket = STATE_CONNECTED;
@@ -52,7 +55,7 @@ angular.module('tophemanDatavizApp')
           //update on each postprocessed tweet
           _socket.on('data',function(msg){
             var channelId, i, keyword;
-            console.log(msg.text);
+//            console.log(msg.text);
             //feed channels infos
             for(channelId in msg.$channels){
               _data.channels[channelId].count++;
@@ -91,15 +94,24 @@ angular.module('tophemanDatavizApp')
           var getState = function() {
             return _state;
           };
-
+          
           var getSocket = function() {
             return _socket;
+          };
+          
+          /**
+           * Returns a promise to use in a route resolver to be sure not to launch some controllers that should have socket connection init before their creation
+           * @returns {$q.promise}
+           */
+          var isInit = function() {
+            return deferred.promise;
           };
 
           return {
             getSocket : getSocket,
             getData: getData,
-            getState: getState
+            getState: getState,
+            isInit : isInit
           };
 
         });

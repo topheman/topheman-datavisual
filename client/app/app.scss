@@ -37,6 +37,8 @@ footer.footer {
 // Component styles are injected through grunt
 // injector
 @import '_variables.scss';
+@import 'controllers/channel/channel.scss';
 @import 'controllers/main/main.scss';
+@import 'directives/lastTweets/lastTweets.scss';
 @import 'header/header.scss';
 // endinjector

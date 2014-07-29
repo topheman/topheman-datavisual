@@ -12,7 +12,7 @@ angular.module('tophemanDatavizApp')
       $scope.channelsMenu = persistance.getData().channelsDescription.map(function(item,i){
         return {
           'title' : item.title,
-          'link' : '/category/'+i
+          'link' : '/channel/'+i
         };
       });
       

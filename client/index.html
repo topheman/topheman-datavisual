@@ -57,6 +57,7 @@
       <!-- bower:js -->
       <script src="bower_components/jquery/dist/jquery.js"></script>
       <script src="bower_components/angular/angular.js"></script>
+      <script src="bower_components/json3/lib/json3.js"></script>
       <script src="bower_components/angular-resource/angular-resource.js"></script>
       <script src="bower_components/angular-cookies/angular-cookies.js"></script>
       <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
@@ -69,7 +70,9 @@
         <!-- build:js({.tmp,client}) app/app.js -->
         <script src="app/app.js"></script>
           <!-- injector:js -->
+          <script src="app/controllers/channel/channel.controller.js"></script>
           <script src="app/controllers/main/main.controller.js"></script>
+          <script src="app/directives/lastTweets/lastTweets.directive.js"></script>
           <script src="app/services/persistance/persistance.service.js"></script>
           <script src="components/header/header.controller.js"></script>
           <!-- endinjector -->
