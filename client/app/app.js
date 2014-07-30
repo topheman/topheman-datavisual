@@ -5,7 +5,8 @@ angular.module('tophemanDatavizApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-  'btford.socket-io'
+  'btford.socket-io',
+  'ngAnimate'
 ])
   .config(function ($routeProvider, $locationProvider) {
     var routeResolver = {

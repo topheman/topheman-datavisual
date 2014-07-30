@@ -12,26 +12,50 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
  */
 
 .browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-    .container {
-        max-width: 730px;
-    }
-}
-
-section{
-  margin-top: 10px;
+  .container {
+    max-width: 730px;
+  }
 }
 
 footer.footer {
-  opacity: 0.85;
-  font-size: 80%;
+  opacity:0.8;
+  font-size:85%;
+}
+
+.view-fade {
+  position: absolute;
+  top: $header-height+60;
+  left: auto;
+  right: auto;
+  /*height: 100%;*/
+  opacity: 1;
+}
+.view-fade.ng-enter,
+.view-fade.ng-leave {
+  -webkit-transition: all 1s ease;
+  -moz-transition: all 1s ease;
+  -o-transition: all 1s ease;
+  transition: all 1s ease;
+}
+.view-fade.ng-enter {
+  opacity: 0;
+}
+.view-fade.ng-enter-active {
+  opacity: 1;
+}
+.view-fade.ng-leave {
+  opacity: 1;
+}
+.view-fade.ng-leave-active {
+  opacity: 0;
 }
 
 // Component styles are injected through grunt
