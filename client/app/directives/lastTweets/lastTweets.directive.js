@@ -29,7 +29,7 @@ angular.module('tophemanDatavizApp')
       link: function(scope, element, attrs){
         var keywords = scope.keywords;
         var reformatTweet = createReformatTweetFunction(keywords);
-        scope.$watch('tweets',function(newCollection){
+        scope.$watchCollection('tweets',function(newCollection){
           newCollection.forEach(function(tweet){
             tweet.text = reformatTweet(tweet.text);
           });

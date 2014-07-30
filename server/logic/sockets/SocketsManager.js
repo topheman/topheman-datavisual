@@ -38,7 +38,16 @@ var SocketsManager = function(io, twitterStreamManager){
     });
   });
   
-  function manageEventsBetweenTwitterAndSockets(stream){
+  var reformatTweet = function(tweet){
+    return {
+      id : tweet.id,
+      text : tweet.text,
+      $channels : tweet.$channels,
+      $keywords : tweet.$keywords
+    }
+  };
+  
+  var manageEventsBetweenTwitterAndSockets = function(stream){
     stream.on('connect',function(){
       twitterState = STATE_CONNECTING;
       io.emit('twitter:connect',{twitterState:twitterState});
@@ -52,7 +61,7 @@ var SocketsManager = function(io, twitterStreamManager){
       io.emit('twitter:connected',{twitterState:twitterState});
     });
     stream.on('channels',function(tweet){
-      io.emit('data',tweet);
+      io.emit('data',reformatTweet(tweet));
     });
   };
   
