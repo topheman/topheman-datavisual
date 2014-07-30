@@ -12,7 +12,7 @@ topheman-dataviz
 
 * npm install
 * bower install
-* grunt init to create the server/config/local.env.js - set your twitter credentials there
+* copy `server/config/local.env.default.js` to `server/config/local.env.js` and set your twitter credentials there (for dev purposes)
 * grunt serve - you're good to go
 
 For the moment the module `twitter-stream-channels` is still in dev and not yet published on npm. Some problems with npm link on windows, so I call the module with a relative path temporarily.
