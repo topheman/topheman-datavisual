@@ -18,6 +18,7 @@ angular.module('tophemanDatavizApp')
       
     });
     
+    $scope.data = persistance.getData();
 
     $scope.isCollapsed = true;
 

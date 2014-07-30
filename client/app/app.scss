@@ -6,6 +6,7 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 @import 'bootstrap-sass-official/vendor/assets/stylesheets/bootstrap';
 @import 'font-awesome/scss/font-awesome';
+@import 'common.scss';
 
 /**
  * App-wide Styles
@@ -58,9 +59,14 @@ footer.footer {
   opacity: 0;
 }
 
+strong {
+  color : $brand-primary;
+}
+
 // Component styles are injected through grunt
 // injector
 @import '_variables.scss';
+@import 'common.scss';
 @import 'controllers/channel/channel.scss';
 @import 'controllers/main/main.scss';
 @import 'directives/lastTweets/lastTweets.scss';

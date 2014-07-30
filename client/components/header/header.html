@@ -13,6 +13,9 @@
     <a ng-href="{{item.link}}">{{item.title}}</a>
   </li>
   <li ng-repeat="item in channelsMenu" ng-class="{active: isActive(item.link)}">
-    <a ng-href="{{item.link}}">{{item.title}}</a>
+    <a ng-href="{{item.link}}">
+      <span class="badge pull-right">{{data.channels[$index].count}}</span>
+      {{item.title}}
+    </a>
   </li>
 </ul>

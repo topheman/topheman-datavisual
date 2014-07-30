@@ -1,3 +1,11 @@
-<ul>
-  <li ng-repeat="tweet in tweets" ng-bind-html="tweet.text" ng-animate="'animate'">{{tweet.text}}</li>
-</ul>
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading" ng-click="collapsed = !collapsed">
+    Last tweets
+    <span ng-class="{'glyphicon':true, 'glyphicon-chevron-down':collapsed, 'glyphicon-chevron-up':!collapsed}"></span>
+  </div>
+  <!-- List group -->
+  <ul class="list-group" ng-if="!collapsed">
+    <li class="list-group-item" ng-repeat="tweet in tweets" ng-bind-html="tweet.text" ng-animate="'animate'">{{tweet.text}}</li>
+  </ul>
+</div>
