@@ -15,6 +15,7 @@ angular.module('tophemanDatavizApp')
           var _data = {
             count : 0,
             channels:{},
+            keywords:{},
             channelsDescription : []
           };
           var _state = {
@@ -72,6 +73,15 @@ angular.module('tophemanDatavizApp')
                 }
                 _data.channels[channelId].keywords[msg.$channels[channelId][i]].count++;
               }
+            }
+            for(i=0; i<msg.$keywords.length; i++){
+              if(typeof _data.keywords[msg.$keywords[i]] === 'undefined'){
+                _data.keywords[msg.$keywords[i]] = {
+                  count : 0,
+                  name : _data.keywords[msg.$keywords[i]]
+                };
+              }
+              _data.keywords[msg.$keywords[i]].count++;
             }
             _data.count++;
           });
