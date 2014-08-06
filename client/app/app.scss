@@ -32,15 +32,9 @@ footer.footer {
 }
 
 .view-fade {
-  position: absolute;
-  top: $header-height+60;
-  left: auto;
-  right: auto;
-  /*height: 100%;*/
   opacity: 1;
 }
-.view-fade.ng-enter,
-.view-fade.ng-leave {
+.view-fade.ng-enter {
   -webkit-transition: all 1s ease;
   -moz-transition: all 1s ease;
   -o-transition: all 1s ease;
