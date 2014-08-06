@@ -1,16 +1,20 @@
-<p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.</p>
+<div class="view-main">
 
-<div ng-repeat="channel in data.channelsDescription">
-  <h4>{{channel.title}}</h4>
-  <p>{{data.channels[$index].count}} tweets</p>
-  <ul>
-    <li ng-repeat="keyword in data.channels[$index].keywords">"{{keyword.name}}" found {{keyword.count}} times</li>
-  </ul>
-  <hr>
+  <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.</p>
+
+  <div ng-repeat="channel in data.channelsDescription">
+    <h4>{{channel.title}}</h4>
+    <p>{{data.channels[$index].count}} tweets</p>
+    <ul>
+      <li ng-repeat="keyword in data.channels[$index].keywords">"{{keyword.name}}" found {{keyword.count}} times</li>
+    </ul>
+    <hr>
+  </div>
+
+  <footer class="footer">
+    <p class="container">
+    ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset
+    </p>
+  </footer>
+
 </div>
-
-<footer class="footer">
-  <p class="container">
-  ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset
-  </p>
-</footer>

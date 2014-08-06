@@ -1,8 +1,10 @@
-<p>{{channel.count}} tweet{{channel.count > 1 ? 's' : ''}}</p>
-<last-tweets data-tweets="channel.lastTweets" data-keywords="channelDescription.track"></last-tweets>
-
-<footer class="footer">
-  <p class="container">
-  ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset
-  </p>
-</footer>
+<div class="view-channel">
+  <p>{{channel.count}} tweet{{channel.count > 1 ? 's' : ''}}</p>
+  <pie-channel data-channel="channel"></pie-channel>
+  <last-tweets data-tweets="channel.lastTweets" data-keywords="channelDescription.track"></last-tweets>
+  <footer class="footer">
+    <p class="container">
+    ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset
+    </p>
+  </footer>
+</div>
