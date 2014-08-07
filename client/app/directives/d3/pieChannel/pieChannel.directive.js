@@ -51,7 +51,7 @@ angular.module('tophemanDatavizApp')
               
               //bind the size attributes (will be triggered on resize event)
               var resize = function(width, height){
-                var min = width = height = width > height ? height : width;
+                var min = width = height = width;
                 
                 scale = function(num){
                   return num*min/2;
@@ -65,6 +65,8 @@ angular.module('tophemanDatavizApp')
                 svg
                         .attr('width', width)
                         .attr('height', height);
+                
+                element[0].style.height = height+'px';
 
                 pieChannel.arcGroup.attr("transform", transform);
 
