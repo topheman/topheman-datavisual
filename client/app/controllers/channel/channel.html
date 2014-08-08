@@ -9,6 +9,14 @@
     </div>
     <pie-channel data-channel="channel" ng-if="!displayState.pieChannel"></pie-channel>
   </div>
+  <div class="panel panel-default pannel-bar-chart-channel">
+    <!-- Default panel contents -->
+    <div class="panel-heading" ng-click="displayState.barChartChannel = !displayState.barChartChannel">
+      Bar chart
+      <span ng-class="{'glyphicon':true, 'glyphicon-chevron-down' : displayState.barChartChannel, 'glyphicon-chevron-up':!displayState.barChartChannel}"></span>
+    </div>
+    <bar-chart-channel data-channel="channel" ng-if="!displayState.barChartChannel"></bar-chart-channel>
+  </div>
   <footer class="footer">
     <p class="container">
     ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset
