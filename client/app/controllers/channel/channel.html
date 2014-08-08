@@ -1,7 +1,14 @@
 <div class="view-channel">
   <p>Total for the "{{channelDescription.title}}" channel : {{channel.count}} tweet{{channel.count > 1 ? 's' : ''}}</p>
-  <last-tweets data-tweets="channel.lastTweets" data-keywords="channelDescription.track"></last-tweets>
-  <pie-channel data-channel="channel"></pie-channel>
+  <last-tweets data-tweets="channel.lastTweets" data-keywords="channelDescription.track" data-collapsed="displayState.lastTweets"></last-tweets>
+  <div class="panel panel-default pannel-pie-channel">
+    <!-- Default panel contents -->
+    <div class="panel-heading" ng-click="displayState.pieChannel = !displayState.pieChannel">
+      Pie chart
+      <span ng-class="{'glyphicon':true, 'glyphicon-chevron-down' : displayState.pieChannel, 'glyphicon-chevron-up':!displayState.pieChannel}"></span>
+    </div>
+    <pie-channel data-channel="channel" ng-if="!displayState.pieChannel"></pie-channel>
+  </div>
   <footer class="footer">
     <p class="container">
     ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset

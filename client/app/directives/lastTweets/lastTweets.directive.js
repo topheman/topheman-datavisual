@@ -25,12 +25,11 @@ angular.module('tophemanDatavizApp')
       scope : {
         tweets : '=',
         keywords : '=',
-        collapsed : '=?'
+        collapsed : '='
       },
       link: function(scope, element, attrs){
         var keywords = scope.keywords;
         var reformatTweet = createReformatTweetFunction(keywords);
-        scope.collapsed = typeof scope.collapsed === 'undefined' ? true : false;
         scope.$watchCollection('tweets',function(newCollection){
           newCollection.forEach(function(tweet){
             tweet.text = reformatTweet(tweet.text);
