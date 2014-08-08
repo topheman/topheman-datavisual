@@ -1,7 +1,7 @@
 <div class="view-channel">
-  <p>{{channel.count}} tweet{{channel.count > 1 ? 's' : ''}}</p>
-  <pie-channel data-channel="channel"></pie-channel>
+  <p>Total for the "{{channelDescription.title}}" channel : {{channel.count}} tweet{{channel.count > 1 ? 's' : ''}}</p>
   <last-tweets data-tweets="channel.lastTweets" data-keywords="channelDescription.track"></last-tweets>
+  <pie-channel data-channel="channel"></pie-channel>
   <footer class="footer">
     <p class="container">
     ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset

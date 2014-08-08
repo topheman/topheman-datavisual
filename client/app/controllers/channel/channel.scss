@@ -1,3 +1,11 @@
-.view-channel pie-channel{
-  height: 500px
+@media (min-width: 768px) {
+  .view-channel pie-channel{
+    margin : 0 130px;
+  }
+}
+@media (max-width: 768px) {
+  .view-channel pie-channel{
+    margin : 0 20px;
+    height : 330px;
+  }
 }

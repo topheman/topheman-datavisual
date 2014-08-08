@@ -21,9 +21,8 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+}
+@media screen and (max-width: 768px) {
 }
 
 footer.footer {
@@ -33,6 +32,7 @@ footer.footer {
 
 .view-fade {
   opacity: 1;
+  margin-top: 10px;
 }
 .view-fade.ng-enter {
   -webkit-transition: all 1s ease;
