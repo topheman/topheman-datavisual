@@ -1,14 +1,13 @@
-@media (min-width: 768px) {
-  .view-channel pie-channel{
-    margin : 10px 130px;
+.view-channel{
+  @media (min-width: 768px) {
+    pie-channel{
+      margin : 10px 130px;
+    }
   }
-}
-@media (max-width: 768px) {
-  .view-channel pie-channel{
-    margin : 10px 20px;
-    height : 330px;
+  @media (max-width: 768px) {
+    pie-channel{
+      margin : 10px 20px;
+      height : 330px;
+    }
   }
-}
-.view-channel .panel-heading{
-  cursor: pointer;
 }

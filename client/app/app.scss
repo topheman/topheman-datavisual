@@ -59,7 +59,9 @@ footer.footer {
 strong {
   color : $brand-primary;
 }
-
+.panel-heading{
+  cursor: pointer;
+}
 // Component styles are injected through grunt
 // injector
 @import '_variables.scss';

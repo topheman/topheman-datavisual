@@ -2,7 +2,16 @@
 
   <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.</p>
 
-  <div ng-repeat="channel in channelsDescription">
+  <div class="panel panel-default pannel-pack-chart-channels">
+    <!-- Default panel contents -->
+    <div class="panel-heading" ng-click="displayState.packChartChannels = !displayState.packChartChannels">
+      Pack chart
+      <span ng-class="{'glyphicon':true, 'glyphicon-chevron-down' : displayState.packChartChannels, 'glyphicon-chevron-up':!displayState.packChartChannels}"></span>
+    </div>
+    <pack-chart-channels data-data="data" ng-if="!displayState.packChartChannels"></pack-chart-channels>
+  </div>
+  
+  <div ng-repeat="channel in data.channelsDescription">
     <h4>{{channel.title}}</h4>
     <p>{{data.channels[$index].count}} tweets</p>
     <ul>

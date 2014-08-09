@@ -22,13 +22,12 @@ angular.module('tophemanDatavizApp')
             socket : STATE_DISCONNECTED,
             twitter : STATE_DISCONNECTED
           };
-          var _channelsDescription = [];
           
           //once the client connected
           _socket.on('connected',function(msg){
             console.log('connected',msg);
             deferred.resolve('init');
-            _channelsDescription = msg.channelsDescription;
+            _data.channelsDescription = msg.channelsDescription;
             _initData();
             _state.socket = STATE_CONNECTED;
             _state.twitter = msg.twitterState;
@@ -89,7 +88,7 @@ angular.module('tophemanDatavizApp')
           
           var _initData = function(){
             var channelId;
-            for(channelId in _channelsDescription){
+            for(channelId in _data.channelsDescription){
               _data.channels[channelId] = {
                 lastTweets : [],
                 keywords : {},
@@ -110,12 +109,6 @@ angular.module('tophemanDatavizApp')
             return _socket;
           };
           
-          var getChannelsDescription = function(channelId){
-            if(typeof channelId === 'undefined'){
-              return _channelsDescription;
-            }
-          };
-          
           /**
            * Returns a promise to use in a route resolver to be sure not to launch some controllers that should have socket connection init before their creation
            * @returns {$q.promise}
@@ -128,7 +121,6 @@ angular.module('tophemanDatavizApp')
             getSocket : getSocket,
             getData: getData,
             getState: getState,
-            getChannelsDescription : getChannelsDescription,
             isInit : isInit
           };
 
