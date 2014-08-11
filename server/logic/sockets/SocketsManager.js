@@ -44,7 +44,7 @@ var SocketsManager = function(io, twitterStreamManager){
       text : tweet.text,
       $channels : tweet.$channels,
       $keywords : tweet.$keywords
-    }
+    };
   };
   
   var manageEventsBetweenTwitterAndSockets = function(stream){
@@ -121,7 +121,7 @@ var SocketsManager = function(io, twitterStreamManager){
       launchStream();
     }
     
-  }
+  };
   
 };
 

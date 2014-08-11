@@ -58,7 +58,6 @@ angular.module('tophemanDatavizApp')
               var result = createD3TreeDataStatic(channelsDescription);
               //update depth-0 and depth-1 then create depth-2 with the data and data.channels
               result.value = data.count;
-              console.log(data.channels, result);
               for(var channelId in data.channels){
                 var channel = data.channels[channelId];
                 result.children[channelId].value = channel.count;//update count

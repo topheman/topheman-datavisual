@@ -26,8 +26,12 @@ angular.module('tophemanDatavizApp')
 
               var packChartSize = {
                 diameter: null,
-                margin : 5
+                margin: 5
               };
+
+              var color = d3.scale.linear()
+                  .domain([0, 3])
+                  .range(["#FFBCBC", "#900000"]);
 
               //attach the static elements in the DOM
               var init = function() {
@@ -58,7 +62,7 @@ angular.module('tophemanDatavizApp')
                 packChartChannels.labelGroup.attr("transform", transform);
 
                 pack = d3.layout.pack()
-                        .size([packChartSize.diameter - packChartSize.margin*2, packChartSize.diameter - packChartSize.margin*2])
+                        .size([packChartSize.diameter - packChartSize.margin * 2, packChartSize.diameter - packChartSize.margin * 2])
                         .padding(10);
 
               };
@@ -66,7 +70,7 @@ angular.module('tophemanDatavizApp')
               var onResize = d3Helpers.debounce(resize, packChartChannels.delay);
 
               var render = function(data) {
-                console.log('render', data);
+                console.log('render');
                 var d3Data = d3Helpers.dataToD3TreeData(data, channelsDescription);
 
                 var nodes = pack.nodes(d3Data);
@@ -75,22 +79,25 @@ angular.module('tophemanDatavizApp')
 
                 circles.enter()
                         .append('circle')
-                        .attr('class', function(d) {
-                          return 'node depth-' + d.depth + ' ' + d.name;
-                        })
                         .attr('transform', function(d) {
-                          return 'translate(' + packChartSize.margin + packChartSize.diameter / 2 + ',' + packChartSize.margin + packChartSize.diameter / 2 + ')';
+                          return 'translate(' + (packChartSize.margin + packChartSize.diameter / 2) + ',' + (packChartSize.margin + packChartSize.diameter / 2) + ')';
                         })
-                        .attr('fill', 'none')
+                        .attr('fill', 'white')
                         .attr('stroke', 'gray')
                         .attr('stroke-width', 1);
 
                 circles.transition()
+                        .attr('fill', function(d){
+                          return d.parent && d.parent.parent ? 'white' : color(d.depth);
+                        })
+                        .attr('class', function(d) {
+                          return 'node depth-' + d.depth + ' ' + d.name;
+                        })
                         .attr('transform', function(d) {
                           return 'translate(' + (packChartSize.margin + d.x) + ',' + (packChartSize.margin + d.y) + ')';
                         })
                         .attr('r', function(d) {
-                          return d.r
+                          return d.r;
                         });
 
                 circles.exit().remove();
@@ -112,8 +119,8 @@ angular.module('tophemanDatavizApp')
                         })
                         .text(function(d) {
                           return d.depth === 1 ? d.name : "";
-                          return d.depth > 1 ? d.name : "";
-                          return d.name;
+//                          return d.depth > 1 ? d.name : "";
+//                          return d.name;
                         });
 
 
