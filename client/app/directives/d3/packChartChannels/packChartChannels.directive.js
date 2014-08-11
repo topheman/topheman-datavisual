@@ -3,7 +3,7 @@
 angular.module('tophemanDatavizApp')
         .directive('packChartChannels', function($window, d3Helpers) {
           return {
-            template: '<style>pack-chart-channels{display:block;}pack-chart-channels svg {display:block;margin : 0 auto;}</style>',
+            template: '<style>pack-chart-channels{display:block;}pack-chart-channels svg{display:block;margin : 0 auto;}pack-chart-channels svg text{text-anchor:middle;}</style>',
             restrict: 'EA',
             scope: {
               data: '='
@@ -16,7 +16,6 @@ angular.module('tophemanDatavizApp')
 
               var svg = null;
               var pack = null;
-              var scale = null;
 
               var packChartChannels = {
                 circleGroup: null,
@@ -24,10 +23,10 @@ angular.module('tophemanDatavizApp')
                 duration: 300,
                 delay: 300
               };
-              
+
               var packChartSize = {
-                width : null,
-                height : null
+                diameter: null,
+                margin : 5
               };
 
               //attach the static elements in the DOM
@@ -44,13 +43,13 @@ angular.module('tophemanDatavizApp')
               //bind the size attributes (will be triggered on resize event)
               var resize = function(width, height) {
                 console.log('resize', width, height);
-                packChartSize.height = packChartSize.width = height = width;
+                packChartSize.diameter = width;
 
                 svg
-                        .attr('width', width)
-                        .attr('height', height);
+                        .attr('width', packChartSize.diameter)
+                        .attr('height', packChartSize.diameter);
 
-                element[0].style.height = height + 'px';
+                element[0].style.height = packChartSize.diameter + 'px';
 
                 var transform = "translate(" + 0 + "," + 0 + ")";
 
@@ -59,7 +58,7 @@ angular.module('tophemanDatavizApp')
                 packChartChannels.labelGroup.attr("transform", transform);
 
                 pack = d3.layout.pack()
-                        .size([width, height])
+                        .size([packChartSize.diameter - packChartSize.margin*2, packChartSize.diameter - packChartSize.margin*2])
                         .padding(10);
 
               };
@@ -80,7 +79,7 @@ angular.module('tophemanDatavizApp')
                           return 'node depth-' + d.depth + ' ' + d.name;
                         })
                         .attr('transform', function(d) {
-                          return 'translate(' + packChartSize.width/2 + ',' + packChartSize.height/2 + ')';
+                          return 'translate(' + packChartSize.margin + packChartSize.diameter / 2 + ',' + packChartSize.margin + packChartSize.diameter / 2 + ')';
                         })
                         .attr('fill', 'none')
                         .attr('stroke', 'gray')
@@ -88,13 +87,36 @@ angular.module('tophemanDatavizApp')
 
                 circles.transition()
                         .attr('transform', function(d) {
-                          return 'translate(' + d.x + ',' + d.y + ')';
+                          return 'translate(' + (packChartSize.margin + d.x) + ',' + (packChartSize.margin + d.y) + ')';
                         })
                         .attr('r', function(d) {
                           return d.r
                         });
 
                 circles.exit().remove();
+
+                var texts = packChartChannels.labelGroup.selectAll('.node').data(nodes);
+
+                texts.enter()
+                        .append('text')
+                        .attr('class', function(d) {
+                          return 'node depth-' + d.depth + ' ' + d.name;
+                        })
+                        .attr('transform', function(d) {
+                          return 'translate(' + packChartSize.diameter / 2 + ',' + packChartSize.diameter / 2 + ')';
+                        });
+
+                texts.transition()
+                        .attr('transform', function(d) {
+                          return 'translate(' + (packChartSize.margin + d.x) + ',' + (packChartSize.margin + d.y) + ')';
+                        })
+                        .text(function(d) {
+                          return d.depth === 1 ? d.name : "";
+                          return d.depth > 1 ? d.name : "";
+                          return d.name;
+                        });
+
+
               };
 
               init();

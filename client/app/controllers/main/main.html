@@ -2,15 +2,22 @@
 
   <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.</p>
 
-  <div class="panel panel-default pannel-pack-chart-channels">
+  <div class="panel panel-default pannel-pack-chart">
     <!-- Default panel contents -->
-    <div class="panel-heading" ng-click="displayState.packChartChannels = !displayState.packChartChannels">
+    <div class="panel-heading" ng-click="displayState.packChart.placeHolder = !displayState.packChart.placeHolder">
       Pack chart
-      <span ng-class="{'glyphicon':true, 'glyphicon-chevron-down' : displayState.packChartChannels, 'glyphicon-chevron-up':!displayState.packChartChannels}"></span>
+      <span ng-class="{'glyphicon':true, 'glyphicon-chevron-down' : !displayState.packChart.placeHolder, 'glyphicon-chevron-up':displayState.packChart.placeHolder}"></span>
     </div>
-    <pack-chart-channels data-data="data" ng-if="!displayState.packChartChannels"></pack-chart-channels>
+    <div class="text-center">
+      <div class="btn-group text-center" ng-if="displayState.packChart.placeHolder">
+        <button type="button" ng-class="{'btn btn-default active' : displayState.packChart.byChannels, 'btn btn-default' : !displayState.packChart.byChannels }" ng-click="displayState.packChart.byChannels = true">By Channels</button>
+        <button type="button" ng-class="{'btn btn-default active' : !displayState.packChart.byChannels, 'btn btn-default' : displayState.packChart.byChannels }" ng-click="displayState.packChart.byChannels = false">By Keywords</button>
+      </div>
+    </div>
+    <pack-chart-channels data-data="data" ng-if="displayState.packChart.placeHolder && displayState.packChart.byChannels"></pack-chart-channels>
+    <div ng-if="displayState.packChart.placeHolder && !displayState.packChart.byChannels">By Keywords</div>
   </div>
-  
+
   <div ng-repeat="channel in data.channelsDescription">
     <h4>{{channel.title}}</h4>
     <p>{{data.channels[$index].count}} tweets</p>
@@ -22,7 +29,7 @@
 
   <footer class="footer">
     <p class="container">
-    ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset
+      ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset
     </p>
   </footer>
 

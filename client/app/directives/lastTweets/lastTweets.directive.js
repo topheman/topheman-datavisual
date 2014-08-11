@@ -25,7 +25,7 @@ angular.module('tophemanDatavizApp')
       scope : {
         tweets : '=',
         keywords : '=',
-        collapsed : '='
+        displayed : '='
       },
       link: function(scope, element, attrs){
         var keywords = scope.keywords;

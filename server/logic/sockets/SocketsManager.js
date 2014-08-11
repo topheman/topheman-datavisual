@@ -15,10 +15,6 @@ var SocketsManager = function(io, twitterStreamManager){
   
   //handle basic socket connection / disconnection
   io.on('connection',function(socket){
-    //if no cleanning sockets routine is runnng - launch one
-    if(cleanSocketsTimer === null){
-      cleanSockets();
-    }
     //if the twitter stream was stopped but the thread not killed, reopen a stream if someone reconnects via websockets
     if(twitterStreamRunning === false && launchStreamRunning === false){
       launchStream();
@@ -28,6 +24,10 @@ var SocketsManager = function(io, twitterStreamManager){
       "time" : (new Date()).getTime(),
       "socket" : socket
     };
+    //if no cleanning sockets routine is runnng - launch one
+    if(cleanSocketsTimer === null){
+      cleanSockets();
+    }
     socket.emit('connected',{
       channelsDescription : twitterStreamManager.getDescriptionChannels(),
       twitterState : twitterState
@@ -104,7 +104,7 @@ var SocketsManager = function(io, twitterStreamManager){
       manageEventsBetweenTwitterAndSockets(stream);
       launchStreamRunning = false;
     },function(stream){
-      console.log('stopping stream after timeout');
+      console.log('>stopping stream after timeout '+(new Date()));
       stream.stop();//stop the stream at timeout
       twitterState = STATE_DISCONNECTED;
       twitterStreamRunning = false;

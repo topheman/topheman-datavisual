@@ -1,21 +1,21 @@
 <div class="view-channel">
   <p>Total for the "{{channelDescription.title}}" channel : {{channel.count}} tweet{{channel.count > 1 ? 's' : ''}}</p>
-  <last-tweets data-tweets="channel.lastTweets" data-keywords="channelDescription.track" data-collapsed="displayState.lastTweets"></last-tweets>
+  <last-tweets data-tweets="channel.lastTweets" data-keywords="channelDescription.track" data-displayed="displayState.lastTweets"></last-tweets>
   <div class="panel panel-default pannel-pie-channel">
     <!-- Default panel contents -->
     <div class="panel-heading" ng-click="displayState.pieChannel = !displayState.pieChannel">
       Pie chart
-      <span ng-class="{'glyphicon':true, 'glyphicon-chevron-down' : displayState.pieChannel, 'glyphicon-chevron-up':!displayState.pieChannel}"></span>
+      <span ng-class="{'glyphicon':true, 'glyphicon-chevron-down' : !displayState.pieChannel, 'glyphicon-chevron-up':displayState.pieChannel}"></span>
     </div>
-    <pie-channel data-channel="channel" ng-if="!displayState.pieChannel"></pie-channel>
+    <pie-channel data-channel="channel" ng-if="displayState.pieChannel"></pie-channel>
   </div>
   <div class="panel panel-default pannel-bar-chart-channel">
     <!-- Default panel contents -->
     <div class="panel-heading" ng-click="displayState.barChartChannel = !displayState.barChartChannel">
       Bar chart
-      <span ng-class="{'glyphicon':true, 'glyphicon-chevron-down' : displayState.barChartChannel, 'glyphicon-chevron-up':!displayState.barChartChannel}"></span>
+      <span ng-class="{'glyphicon':true, 'glyphicon-chevron-down' : !displayState.barChartChannel, 'glyphicon-chevron-up':displayState.barChartChannel}"></span>
     </div>
-    <bar-chart-channel data-channel="channel" ng-if="!displayState.barChartChannel"></bar-chart-channel>
+    <bar-chart-channel data-channel="channel" ng-if="displayState.barChartChannel"></bar-chart-channel>
   </div>
   <footer class="footer">
     <p class="container">

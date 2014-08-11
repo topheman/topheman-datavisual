@@ -4,9 +4,12 @@ angular.module('tophemanDatavizApp')
   .service('displayState', function () {
     //whether it is collapsed or not
     return {
-      pieChannel : false,
-      lastTweets : true,
-      barChartChannel : true,
-      packChartChannels : false
+      pieChannel : true,
+      lastTweets : false,
+      barChartChannel : false,
+      packChart : {
+        placeHolder : true,
+        byChannels : true
+      }
     };
   });
