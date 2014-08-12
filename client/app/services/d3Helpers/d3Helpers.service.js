@@ -6,7 +6,7 @@ angular.module('tophemanDatavizApp')
           /**
            * Create a tree map to be used by d3 from static channelsDescription
            * Only the depth-0 and depth-1 nodes (root and channels, not keywords)
-           * @param {Object} channelsDescription
+           * @param {Object} channelsDescription (from persistance.getData().channelsDescription)
            * @returns {Object}
            */
           var createD3TreeDataStatic = function(channelsDescription){
@@ -50,12 +50,11 @@ angular.module('tophemanDatavizApp')
             /**
              * Creates a data object to use in d3 tree/pack likes layout
              * This one is NOT static, the data is updated by data
-             * @param {Object} data
-             * @param {Object} channelsDescription
+             * @param {Object} data (from persistance.getData())
              * @returns {Object}
              */
-            dataToD3TreeData : function(data, channelsDescription){
-              var result = createD3TreeDataStatic(channelsDescription);
+            dataToD3TreeData : function(data){
+              var result = createD3TreeDataStatic(data.channelsDescription);
               //update depth-0 and depth-1 then create depth-2 with the data and data.channels
               result.value = data.count;
               for(var channelId in data.channels){
@@ -73,8 +72,34 @@ angular.module('tophemanDatavizApp')
             },
             /**
              * Creates a data object to use in d3 tree/pack likes layout
+             * This one is NOT static, the data is updated by data
+             * @param {Object} data (from persistance.getData())
+             * @param {Int} channelId
+             * @returns {Object}
+             */
+            channelToD3TreeData : function(data, channelId){
+              var result = {
+                value : 0,
+                channelId : channelId,
+                children : []
+              };
+              if(data.channels && data.channels[channelId]){
+                var channel = data.channels[channelId];
+                result.value = channel.count;//update count
+                for(var keyword in channel.keywords){
+                  result.children.push({
+                    name : channel.keywords[keyword].name,
+                    value : channel.keywords[keyword].count,
+                    channelId : channelId
+                  });
+                }
+              }
+              return result;
+            },
+            /**
+             * Creates a data object to use in d3 tree/pack likes layout
              * This one is static, the data is NOT updated
-             * @param {Object} channelsDescription
+             * @param {Object} channelsDescription (from persistance.getData().channelsDescription)
              * @returns {Object}
              */
             channelsDescriptionToD3TreeData : function(channelsDescription){

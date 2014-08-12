@@ -1,104 +1,64 @@
 'use strict';
 
 angular.module('tophemanDatavizApp')
-        .directive('packChartChannels', function($window, d3Helpers) {
+        .directive('treeChartChannels', function($window, d3Helpers) {
           return {
-            template: '<style>pack-chart-channels{display:block;}pack-chart-channels svg{display:block;margin : 0 auto;}pack-chart-channels svg text{text-anchor:middle;}pack-chart-channels circle.clickable:hover{stroke : black;stroke-width : 2px;}</style>',
+            template: '<style>tree-chart-channels{display:block;}tree-chart-channels svg{display:block;margin : 0 auto;}tree-chart-channels svg text{text-anchor:middle;}tree-chart-channels circle.clickable:hover{stroke : black;stroke-width : 2px;}</style>',
             restrict: 'E',
             scope: {
+              aspectRatio: '=',
               data: '='
             },
             link: function(scope, element, attrs) {
 
+              var DEFAULT_ASPECT_RATIO = 1.25;
+
               var d3 = $window.d3;
 
               var svg = null;
-              var pack = null;
+              var tree = null;
+              var heightScale = null;
+              var widthScale = null;
 
               var focusedChannelId = null;
 
-              var packChartChannels = {
-                circleGroup: null,
-                labelGroup: null,
-                duration: 300,
-                delay: 300
+              var treeChartChannels = {
+                transition : 300,
+                delay : 300
               };
 
-              var packChartSize = {
-                diameter: null,
-                margin: 5
-              };
-              
-              var color = function(depth){
-                var map = {
-                  0 : "#FFECEC",
-                  1 : "#FFBCBC",
-                  2 : "white"
-                };
-                if(focusedChannelId !== null){
-                  depth++;
-                }
-                return map[depth];
+              var treeChartSize = {
+                height: null,
+                width: null,
+                margin : 5
               };
 
-              var onClick = function(d) {
-                if (focusedChannelId === null && typeof d.channelId !== 'undefined') {
-                  focusedChannelId = d.channelId;
-                }
-                else {
-                  focusedChannelId = null;
-                }
-                d3.event.stopPropagation();
-              };
+              var color = d3.scale.category20();
 
               //attach the static elements in the DOM
               var init = function() {
                 svg = d3.select(element[0]).append('svg');
-
-                packChartChannels.circleGroup = svg.append("g")
-                        .attr("class", "circle-group");
-
-                packChartChannels.labelGroup = svg.append("g")
-                        .attr("class", "label-group");
               };
 
               //bind the size attributes (will be triggered on resize event)
               var resize = function(width, height) {
                 console.log('resize', width, height);
-                packChartSize.diameter = width;
 
-                svg
-                        .attr('width', packChartSize.diameter)
-                        .attr('height', packChartSize.diameter);
-
-                element[0].style.height = packChartSize.diameter + 'px';
-
-                var transform = "translate(" + 0 + "," + 0 + ")";
-
-                packChartChannels.circleGroup.attr("transform", transform);
-
-                packChartChannels.labelGroup.attr("transform", transform);
-
-                pack = d3.layout.pack()
-                        .size([packChartSize.diameter - packChartSize.margin * 2, packChartSize.diameter - packChartSize.margin * 2])
+                tree = d3.layout.tree()
+                        .size([treeChartSize.width - treeChartSize.margin * 2, treeChartSize.height - treeChartSize.margin * 2])
                         .padding(10);
 
               };
 
-              var onResize = d3Helpers.debounce(resize, packChartChannels.delay);
+              var onResize = d3Helpers.debounce(resize, treeChartChannels.delay);
 
               var render = function(data) {
-                var d3Data;
-
-                if (focusedChannelId === null) {
-                  d3Data = d3Helpers.dataToD3TreeData(data);
-                }
-                else {
-                  d3Data = d3Helpers.channelToD3TreeData(data, focusedChannelId);
-                }
+                
+                var d3Data = d3Helpers.dataToD3TreeData(data);
+                
                 console.log('render',d3Data);
 
-                var nodes = pack.nodes(d3Data);
+                var nodes = tree.nodes(d3Data);
 
                 var circles = packChartChannels.circleGroup.selectAll('.node').data(nodes);
 
