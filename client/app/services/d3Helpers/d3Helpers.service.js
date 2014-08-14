@@ -25,6 +25,49 @@ angular.module('tophemanDatavizApp')
             });
             return result;
           };
+          
+          /**
+           * Create a tree map to be used by d3 from static channelsDescription
+           * Not like createD3TreeDataStatic, all the nodes (depth-0/1/2) are created and initiated to value=0 (root and channels, not keywords)
+           * You can use updateD3TreeStatic to update this object with new incoming data
+           * @param {Object} channelsDescription (from persistance.getData().channelsDescription)
+           * @returns {Object}
+           */
+          var createD3TreeStatic = function(channelsDescription){
+            var result = createD3TreeDataStatic(channelsDescription);
+            channelsDescription.forEach(function(channel, channelId){
+              channel.track.forEach(function(keyword){
+                result.children[channelId].children.push({
+                  name : keyword,
+                  channelId : channelId,
+                  value : 0//default count
+                });
+              });
+            });
+            return result;
+          };
+          
+          /**
+           * Returns an updated version of d3DataTreeStatic (previously creeated with createD3TreeStatic) with new data
+           * @param {Object} d3DataTreeStatic
+           * @param {Object} data
+           * @returns {Object}
+           */
+          var updateD3TreeStatic = function(d3DataTreeStatic, data){
+            var result = d3DataTreeStatic;
+            //update depth-0 and depth-1 then create depth-2 with the data and data.channels
+            result.value = data.count;
+            for(var channelId in data.channels){
+              var channel = data.channels[channelId];
+              result.children[channelId].value = channel.count;//update count
+              var i = 0;
+              for(var keyword in channel.keywords){
+                result.children[channelId].children[i].value = channel.keywords[keyword].count;
+                i++;
+              }
+            }
+            return result;
+          };
 
           return {
             //from http://davidwalsh.name/javascript-debounce-function
@@ -113,7 +156,22 @@ angular.module('tophemanDatavizApp')
                 });
               });
               return result;
-            }
+            },
+            /**
+             * Creates a data object to use in d3 tree/pack likes layout
+             * This one is static, the data is NOT updated BUT it contains the children keywords with count set to 0
+             * @param {Object} channelsDescription (from persistance.getData().channelsDescription)
+             * @returns {Object}
+             */
+            channelsDescriptionToD3TreeDataStatic : createD3TreeStatic,
+            /**
+             * Returns an updated version of d3DataTreeStatic (previously creeated with createD3TreeStatic) with new data
+             * @param {Object} d3DataTreeStatic
+             * @param {Object} data
+             * @returns {Object}
+             */
+            updateD3TreeDataStatic : updateD3TreeStatic
+            
           };
 
         });

@@ -7,6 +7,7 @@ angular.module('tophemanDatavizApp')
       pieChannel : true,
       lastTweets : false,
       barChartChannel : false,
-      packChartChannel : true
+      packChartChannels : false,
+      treeChartChannels : true
     };
   });

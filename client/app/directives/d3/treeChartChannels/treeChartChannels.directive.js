@@ -3,7 +3,7 @@
 angular.module('tophemanDatavizApp')
         .directive('treeChartChannels', function($window, d3Helpers) {
           return {
-            template: '<style>tree-chart-channels{display:block;}tree-chart-channels svg{display:block;margin : 0 auto;}tree-chart-channels svg text{text-anchor:middle;}tree-chart-channels circle.clickable:hover{stroke : black;stroke-width : 2px;}</style>',
+            template: '<style>tree-chart-channels{display:block;}tree-chart-channels svg{display:block;margin : 0 auto;}tree-chart-channels svg text{/**/}tree-chart-channels circle.clickable:hover{stroke : black;stroke-width : 2px;}</style>',
             restrict: 'E',
             scope: {
               aspectRatio: '=',
@@ -12,104 +12,126 @@ angular.module('tophemanDatavizApp')
             link: function(scope, element, attrs) {
 
               var DEFAULT_ASPECT_RATIO = 1.25;
+              var aspectRatio = scope.aspectRatio || DEFAULT_ASPECT_RATIO;
 
               var d3 = $window.d3;
 
               var svg = null;
               var tree = null;
+              var diagonal = null;
               var heightScale = null;
               var widthScale = null;
 
               var focusedChannelId = null;
 
               var treeChartChannels = {
-                transition : 300,
-                delay : 300
+                nodes: null,
+                links: null,
+                transition: 300,
+                delay: 300
               };
 
               var treeChartSize = {
                 height: null,
                 width: null,
-                margin : 5
+                margin: 5
               };
 
+              var d3TreeDataStatic = null;
+
               var color = d3.scale.category20();
+
 
               //attach the static elements in the DOM
               var init = function() {
                 svg = d3.select(element[0]).append('svg');
+
+                treeChartChannels.nodes = svg.append('g')
+                        .attr('class', 'node-group');
+
+                treeChartChannels.links = svg.append('g')
+                        .attr('class', 'link-group');
               };
 
               //bind the size attributes (will be triggered on resize event)
-              var resize = function(width, height) {
-                console.log('resize', width, height);
+              var resize = function(width) {
+                console.log('resize', width);
+                var height = parseInt(width / aspectRatio);
+                svg
+                        .attr('height', height)
+                        .attr('width', width);
+
+                treeChartSize.height = height - 2 * treeChartSize.margin;
+                treeChartSize.width = width - 2 * treeChartSize.margin;
+
+                var transform = 'translate(' + treeChartSize.margin + ',' + treeChartSize.margin + ')';
+
+                treeChartChannels.nodes
+                        .attr('transform', transform);
+
+                treeChartChannels.links
+                        .attr('transform', transform);
 
                 tree = d3.layout.tree()
-                        .size([treeChartSize.width - treeChartSize.margin * 2, treeChartSize.height - treeChartSize.margin * 2])
-                        .padding(10);
+                        .size([treeChartSize.width, treeChartSize.height]);
+
+                diagonal = d3.svg.diagonal()
+                        .projection(function(d) {
+                          return [d.y - treeChartSize.margin, (d.x - treeChartSize.margin)/aspectRatio];
+                        });//to flip vertical to horizontal
 
               };
 
               var onResize = d3Helpers.debounce(resize, treeChartChannels.delay);
 
               var render = function(data) {
-                
-                var d3Data = d3Helpers.dataToD3TreeData(data);
-                
-                console.log('render',d3Data);
+
+                if (d3TreeDataStatic === null) {
+                  if (data.channelsDescription && data.channelsDescription.length > 0) {
+                    d3TreeDataStatic = d3Helpers.channelsDescriptionToD3TreeDataStatic(data.channelsDescription);
+                  }
+                  else {
+                    return false;
+                  }
+                }
+
+                var d3Data = d3Helpers.updateD3TreeDataStatic(d3TreeDataStatic, data);
 
                 var nodes = tree.nodes(d3Data);
+                var links = tree.links(nodes);
 
-                var circles = packChartChannels.circleGroup.selectAll('.node').data(nodes);
+                var node = treeChartChannels.nodes.selectAll('text').data(nodes);
 
-                circles.enter()
-                        .append('circle')
-                        .attr('transform', function(d) {
-                          return 'translate(' + (packChartSize.margin + packChartSize.diameter / 2) + ',' + (packChartSize.margin + packChartSize.diameter / 2) + ')';
-                        })
-                        .attr('fill', '#FFECEC')
-                        .attr('stroke', 'gray')
-                        .attr('stroke-width', 1)
-                        .on('click', onClick);
+                node.enter()
+                        .append('text');
 
-                circles.transition()
-                        .attr('fill', function(d) {
-                          return color(d.depth);
-                        })
+                node.transition()
                         .attr('class', function(d) {
-                          return d.children ? 'node clickable' : 'node';
+                          return 'node depth-' + d.depth;
                         })
                         .attr('transform', function(d) {
-                          return 'translate(' + (packChartSize.margin + d.x) + ',' + (packChartSize.margin + d.y) + ')';
-                        })
-                        .attr('r', function(d) {
-                          return d.r;
-                        });
-
-                circles.exit().remove();
-
-                var texts = packChartChannels.labelGroup.selectAll('.node').data(nodes);
-
-                texts.enter()
-                        .append('text')
-                        .attr('class', function(d) {
-                          return 'node depth-' + d.depth + ' ' + d.name;
-                        })
-                        .attr('transform', function(d) {
-                          return 'translate(' + packChartSize.diameter / 2 + ',' + packChartSize.diameter / 2 + ')';
-                        })
-                        .on('click', onClick);
-
-                texts.transition()
-                        .attr('transform', function(d) {
-                          return 'translate(' + (packChartSize.margin + d.x) + ',' + (packChartSize.margin + d.y) + ')';
+                          return 'translate(' + (d.y) + ',' + (d.x / aspectRatio) + ')';
                         })
                         .text(function(d) {
-                          return d.depth === 1 ? d.name + '('+d.value+')' : "";
+                          return d.name+'('+d.value+')';
                         });
 
-                texts.exit().remove();
+                node.exit().remove();
 
+                var links = treeChartChannels.links.selectAll('.link').data(links);
+
+                links.enter()
+                        .append('path');
+
+                links.transition()
+                        .attr('class', 'link')
+                        .attr('stroke', 'gray')
+                        .attr('fill', 'none')
+                        .attr('d', diagonal);
+
+                links.exit().remove();
+
+                console.log('render', nodes);
 
               };
 
