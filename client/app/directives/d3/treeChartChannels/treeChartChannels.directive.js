@@ -3,29 +3,32 @@
 angular.module('tophemanDatavizApp')
         .directive('treeChartChannels', function($window, d3Helpers) {
           return {
-            template: '<style>tree-chart-channels{display:block;}tree-chart-channels svg{display:block;margin : 0 auto;}tree-chart-channels svg text{/**/}tree-chart-channels circle.clickable:hover{stroke : black;stroke-width : 2px;}</style>',
+            template: '<style>tree-chart-channels{display:block;}tree-chart-channels svg{display:block;margin : 0 auto;}tree-chart-channels svg text{/**/}tree-chart-channels circle.clickable:hover{stroke : black;stroke-width : 2px;}@media screen and (max-width: 420px){tree-chart-channels text{font-size:80%;}}</style>',
             restrict: 'E',
             scope: {
               aspectRatio: '=',
-              data: '='
+              data: '=',
+              breakPoint: '=?'
             },
             link: function(scope, element, attrs) {
 
               var DEFAULT_ASPECT_RATIO = 1.25;
               var aspectRatio = scope.aspectRatio || DEFAULT_ASPECT_RATIO;
+              var breakPoint = scope.breakPoint || 430;
 
               var d3 = $window.d3;
+
+              var elemCurrentWidth = 500;//default;
 
               var svg = null;
               var tree = null;
               var diagonal = null;
-              var heightScale = null;
-              var widthScale = null;
 
-              var focusedChannelId = null;
+              var rectsSizes = [];
 
               var treeChartChannels = {
-                nodes: null,
+                rects: null,
+                texts: null,
                 links: null,
                 transition: 300,
                 delay: 300
@@ -34,28 +37,58 @@ angular.module('tophemanDatavizApp')
               var treeChartSize = {
                 height: null,
                 width: null,
-                margin: 5
+                margin: 5,
+                rectsHeight: 20,
+                rectsMargin: 10
               };
 
+              var color = function(depth) {
+                var map = {
+                  0: "#FFECEC",
+                  1: "#FFBCBC",
+                  2: "white"
+                };
+                return map[depth];
+              };
+
+              var rectsHeight = function() {
+                if (elemCurrentWidth > breakPoint) {
+                  return 20;
+                }
+                else {
+                  return 15;
+                }
+              };
+
+              var rectsMargin = function() {
+                if (elemCurrentWidth > breakPoint) {
+                  return 10;
+                }
+                else {
+                  return 7;
+                }
+              }
+
               var d3TreeDataStatic = null;
-
-              var color = d3.scale.category20();
-
 
               //attach the static elements in the DOM
               var init = function() {
                 svg = d3.select(element[0]).append('svg');
 
-                treeChartChannels.nodes = svg.append('g')
-                        .attr('class', 'node-group');
-
                 treeChartChannels.links = svg.append('g')
                         .attr('class', 'link-group');
+
+                treeChartChannels.rects = svg.append('g')
+                        .attr('class', 'rect-group');
+
+                treeChartChannels.texts = svg.append('g')
+                        .attr('class', 'text-group');
               };
 
               //bind the size attributes (will be triggered on resize event)
               var resize = function(width) {
                 console.log('resize', width);
+                elemCurrentWidth = width;
                 var height = parseInt(width / aspectRatio);
                 svg
                         .attr('height', height)
@@ -66,10 +99,13 @@ angular.module('tophemanDatavizApp')
 
                 var transform = 'translate(' + treeChartSize.margin + ',' + treeChartSize.margin + ')';
 
-                treeChartChannels.nodes
+                treeChartChannels.links
                         .attr('transform', transform);
 
-                treeChartChannels.links
+                treeChartChannels.rects
+                        .attr('transform', transform);
+
+                treeChartChannels.texts
                         .attr('transform', transform);
 
                 tree = d3.layout.tree()
@@ -77,8 +113,8 @@ angular.module('tophemanDatavizApp')
 
                 diagonal = d3.svg.diagonal()
                         .projection(function(d) {
-                          return [d.y - treeChartSize.margin, (d.x - treeChartSize.margin)/aspectRatio];
-                        });//to flip vertical to horizontal
+                          return [d.y - treeChartSize.margin, (d.x - treeChartSize.margin) / aspectRatio];
+                        });
 
               };
 
@@ -100,24 +136,6 @@ angular.module('tophemanDatavizApp')
                 var nodes = tree.nodes(d3Data);
                 var links = tree.links(nodes);
 
-                var node = treeChartChannels.nodes.selectAll('text').data(nodes);
-
-                node.enter()
-                        .append('text');
-
-                node.transition()
-                        .attr('class', function(d) {
-                          return 'node depth-' + d.depth;
-                        })
-                        .attr('transform', function(d) {
-                          return 'translate(' + (d.y) + ',' + (d.x / aspectRatio) + ')';
-                        })
-                        .text(function(d) {
-                          return d.name+'('+d.value+')';
-                        });
-
-                node.exit().remove();
-
                 var links = treeChartChannels.links.selectAll('.link').data(links);
 
                 links.enter()
@@ -131,7 +149,54 @@ angular.module('tophemanDatavizApp')
 
                 links.exit().remove();
 
-                console.log('render', nodes);
+                var rects = treeChartChannels.rects.selectAll('rect').data(nodes);
+
+                rects.enter()
+                        .append('rect');
+
+                rects.transition()
+                        .attr('class', function(d) {
+                          return 'rect depth-' + d.depth;
+                        })
+                        .attr('height', function(d) {
+                          return rectsHeight();
+                        })
+                        .attr('width', function(d) {
+                          return rectsSizes[d.name + d.depth] ? rectsSizes[d.name + d.depth] + 2 * rectsMargin() : 0;
+                        })
+                        .attr('x', function(d) {
+                          return d.y - rectsMargin();
+                        })
+                        .attr('y', function(d) {
+                          return d.x / aspectRatio + treeChartSize.margin - rectsHeight();
+                        })
+                        .style('fill', function(d) {
+                          return color(d.depth);
+                        })
+                                .attr('rx',3)
+                                .attr('ry',3)
+                        .attr('stroke', 'black');
+
+                rects.exit().remove();
+
+                var text = treeChartChannels.texts.selectAll('text').data(nodes);
+
+                text.enter()
+                        .append('text');
+
+                text.transition()
+                        .attr('class', function(d) {
+                          rectsSizes[d.name + d.depth] = this.getComputedTextLength();//set the text length
+                          return 'node depth-' + d.depth;
+                        })
+                        .attr('transform', function(d) {
+                          return 'translate(' + (d.y) + ',' + (d.x / aspectRatio) + ')';
+                        })
+                        .text(function(d) {
+                          return d.name + '(' + d.value + ')';
+                        });
+
+                text.exit().remove();
 
               };
 
