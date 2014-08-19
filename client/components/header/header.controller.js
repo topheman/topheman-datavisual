@@ -6,7 +6,7 @@ angular.module('tophemanDatavizApp')
       'title': 'Home',
       'link': '/'
     }];
-  
+
     $scope.state = persistance.getState();
   
     persistance.getSocket().on('connected',function(){

@@ -26,7 +26,7 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     
-    <header ng-include="'components/header/header.html'"></header>
+    <header ng-include="'components/header/header.html'" ng-controller="HeaderCtrl"></header>
     
     <!-- Add your site or application content here -->
     <div ng-view="" class="view-fade container"></div>
@@ -76,6 +76,7 @@
           <script src="app/services/d3Helpers/d3Helpers.service.js"></script>
           <script src="app/services/displayState/displayState.service.js"></script>
           <script src="app/services/persistance/persistance.service.js"></script>
+          <script src="app/services/rootScopeSafeApply/rootScopeSafeApply.service.js"></script>
           <script src="components/header/header.controller.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
