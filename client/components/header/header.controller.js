@@ -7,6 +7,8 @@ angular.module('tophemanDatavizApp')
       'link': '/'
     }];
   
+    $scope.state = persistance.getState();
+  
     persistance.getSocket().on('connected',function(){
   
       $scope.channelsMenu = persistance.getData().channelsDescription.map(function(item,i){

@@ -17,7 +17,8 @@ angular.module('tophemanDatavizApp', [
     $routeProvider
       .when('/', {
         templateUrl: 'app/controllers/main/main.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        resolve: routeResolver
       })
       .when('/channel/:channel', {
         templateUrl: 'app/controllers/channel/channel.html',

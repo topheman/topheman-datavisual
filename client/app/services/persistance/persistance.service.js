@@ -33,10 +33,19 @@ angular.module('tophemanDatavizApp')
             _state.twitter = msg.twitterState;
           });
           
+          //if the client looses the socket connection to the server
+          _socket.on('disconnect',function(msg){
+            console.log('disconnect',msg);
+            _state.socket = STATE_DISCONNECTED;
+            _state.twitter = STATE_DISCONNECTED;
+          });
+          
           //event emitted from the server when a client has been inactive too long
           _socket.on('inactive-socket',function(msg){
             console.warn(msg.msg, "Inactive for "+msg.timeout+"ms");
             _socket.disconnect();
+            _state.socket = STATE_DISCONNECTED;
+            _state.twitter = STATE_DISCONNECTED;
           });
           
           //events to keep track of the state of the twitter stream on the server behing the websocket
@@ -121,7 +130,28 @@ angular.module('tophemanDatavizApp')
             getSocket : getSocket,
             getData: getData,
             getState: getState,
-            isInit : isInit
+            isInit : isInit,
+            _debug :{
+              state : {
+                switchSocketState : function(){
+                  if(_state.socket === STATE_CONNECTED){
+                    _state.socket = STATE_DISCONNECTED;
+                  }
+                  else{
+                    _state.socket = STATE_CONNECTED;
+                  }
+                  console.log('switchSocketState',_state.socket);
+                },
+                switchTwitterState : function(){
+                  if(_state.twitter === STATE_CONNECTED){
+                    _state.twitter = STATE_DISCONNECTED;
+                  }
+                  else{
+                    _state.twitter = STATE_CONNECTED;
+                  }
+                }
+              }
+            }
           };
 
         });

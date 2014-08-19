@@ -33,6 +33,13 @@ footer.footer {
   font-size:85%;
 }
 
+.footer {
+  text-align: center;
+  padding: 30px 0;
+  margin-top: 70px;
+  border-top: 1px solid #E5E5E5;
+}
+
 .view-fade {
   opacity: 1;
   margin-top: 10px;
@@ -69,5 +76,6 @@ strong {
 @import 'controllers/channel/channel.scss';
 @import 'controllers/main/main.scss';
 @import 'directives/lastTweets/lastTweets.scss';
+@import 'directives/stateNotifications/stateNotifications.scss';
 @import 'header/header.scss';
 // endinjector
