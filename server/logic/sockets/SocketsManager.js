@@ -1,5 +1,10 @@
 var socketMaxAge = require('../../config/environment').socketMaxAge;
+var socketMaxAgeAlertBefore = require('../../config/environment').socketMaxAgeAlertBefore;
 var cleanSocketsDelay = require('../../config/environment').cleanSocketsDelay;
+
+if(socketMaxAgeAlertBefore > socketMaxAge){
+  throw new Error("socketMaxAgeAlertBefore > socketMaxAge - must be lesser than. socketMaxAgeAlertBefore : "+socketMaxAgeAlertBefore+", socketMaxAge : "+socketMaxAge);
+}
 
 var SocketsManager = function(io, twitterStreamManager){
   
@@ -30,7 +35,9 @@ var SocketsManager = function(io, twitterStreamManager){
     }
     socket.emit('connected',{
       channelsDescription : twitterStreamManager.getDescriptionChannels(),
-      twitterState : twitterState
+      twitterState : twitterState,
+      socketMaxAge : socketMaxAge,
+      socketMaxAgeAlertBefore : socketMaxAgeAlertBefore
     });
     socket.on('disconnect',function(){
       delete sockets[socket.id];

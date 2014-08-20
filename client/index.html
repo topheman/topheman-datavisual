@@ -13,6 +13,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/angular-growl-v2/build/angular-growl.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -31,6 +32,17 @@
     <!-- Add your site or application content here -->
     <div ng-view="" class="view-fade container"></div>
 
+    <script type="text/ng-template" id="templates/growl/growl.html">
+      <div class="growl-container" ng-class="wrapperClasses()">
+        <div class="growl-item alert" ng-repeat="message in messages" ng-class="alertClasses(message)" ng-click="stopTimeoutClose(message)">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true" ng-click="deleteMessage(message)" ng-show="!message.disableCloseButton">&times;</button>
+          <button type="button" class="close" aria-hidden="true" ng-show="showCountDown(message)">{{message.countdown}}</button>
+          <h4 class="growl-title" ng-show="message.title" ng-bind="message.title"></h4>
+          <div class="growl-message" ng-bind-html="message.text"></div>
+        </div>
+      </div>
+    </script>
+    
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -59,6 +71,7 @@
       <script src="bower_components/angular-socket-io/socket.js"></script>
       <script src="bower_components/angular-animate/angular-animate.js"></script>
       <script src="bower_components/d3/d3.js"></script>
+      <script src="bower_components/angular-growl-v2/build/angular-growl.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
 
@@ -71,6 +84,7 @@
           <script src="app/directives/d3/packChartChannels/packChartChannels.directive.js"></script>
           <script src="app/directives/d3/pieChannel/pieChannel.directive.js"></script>
           <script src="app/directives/d3/treeChartChannels/treeChartChannels.directive.js"></script>
+          <script src="app/directives/debug/debugState/debugState.directive.js"></script>
           <script src="app/directives/lastTweets/lastTweets.directive.js"></script>
           <script src="app/directives/stateNotifications/stateNotifications.directive.js"></script>
           <script src="app/services/d3Helpers/d3Helpers.service.js"></script>

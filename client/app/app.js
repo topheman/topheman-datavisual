@@ -6,9 +6,10 @@ angular.module('tophemanDatavizApp', [
   'ngSanitize',
   'ngRoute',
   'btford.socket-io',
-  'ngAnimate'
+  'ngAnimate',
+  'angular-growl'
 ])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider, $locationProvider, growlProvider) {
     var routeResolver = {
       app: function(persistance) {
         return persistance.isInit();
@@ -30,4 +31,10 @@ angular.module('tophemanDatavizApp', [
       });
 
     $locationProvider.html5Mode(true);
+    
+    growlProvider.onlyUniqueMessages(false);
+    growlProvider.globalPosition('bottom-right');
+    growlProvider.globalReversedOrder(true);
+    growlProvider.globalDisableCountDown(true);
+    growlProvider.globalTimeToLive(8000);
   });

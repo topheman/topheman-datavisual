@@ -26,7 +26,8 @@ var all = {
     session: process.env.SESSION_SECRET || 'topheman-dataviz-secret'
   },
   
-  socketMaxAge : 360000, //10minutes
+  socketMaxAge : 600000, //10minutes
+  socketMaxAgeAlertBefore : 30000, //30secs delay before socketMaxAge to tell the user he will be disconnected
   cleanSocketsDelay : 60000, //1minute
   
   twitterStreamTimeout : 880000 //15minutes (little less) - a twiiter stream can only stay opened 15minutes - so if no sockets are opened when this delay is expired, don't relaunch a stream
