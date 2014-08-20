@@ -10,12 +10,13 @@ angular.module('tophemanDatavizApp')
             link: function(scope, element, attrs) {
               
               scope.state = persistance.getState();
+              scope.socketMaxAgeInfos = persistance.getSocketMaxAgeInfos();
 
               scope.$watch('state.twitter', function(newVal, oldVal) {
                 console.log('state.twitter', newVal, oldVal);
                 if(newVal !== oldVal){
                   if(newVal === 'disconnected'){
-                    growl.warning("Server has disconnected from Twitter stream, trying to reconnect ...<span ng-click='console.log(1)'>toto</span>");
+                    growl.warning("Server has disconnected from Twitter stream, trying to reconnect ...");
                   }
                   if(newVal === 'connected'){
                     growl.success("Server successfully connected to Twitter stream", {ttl: 15000});
@@ -41,7 +42,12 @@ angular.module('tophemanDatavizApp')
               scope.$watch('state.socketTimeout', function(newVal, oldVal) {
                 console.log('state.socket', newVal, oldVal);
                 if(newVal !== 0){
-                  growl.info("You've been inactive for some time. You will be disconnected in XX seconds if you don't relaunch.");
+                  growl.warning("You've been inactive for some time. You will be disconnected in about "+(scope.socketMaxAgeInfos.socketMaxAgeAlertBefore/1000)+" seconds if you don't relaunch.",{
+                    title : function(){
+                      persistance.extendConnexion();
+                      return true;
+                    }
+                  });
                 }
               });
 
