@@ -8,6 +8,7 @@ header .container-fluid{
 
 /** header logo*/
 .navbar-brand.logo{
+  margin-right:10px;
   background-image: url(../assets/images/tophemanjs-angular.png);
   width: 215px;
   height: 50px;
@@ -92,7 +93,9 @@ ul.site-networks li.twitter a span.icon{
 ul.site-networks li.github a span.icon{
   background-image: url(../assets/images/github.png);
 }
-@media (max-width: $grid-float-breakpoint) {
+@media only screen 
+and (max-width: $grid-float-breakpoint) and (min-width : 370px)
+{
   ul.site-networks{
     right:70px;
   }
@@ -111,7 +114,7 @@ ul.site-networks li.github a span.icon{
 }
 /** for small devices */
 @media only screen 
-and (max-width : 320px) {
+and (max-width : 370px) {
   ul.site-networks{
     display: none;
   }
