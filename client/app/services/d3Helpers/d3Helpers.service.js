@@ -60,9 +60,14 @@ angular.module('tophemanDatavizApp')
             for(var channelId in data.channels){
               var channel = data.channels[channelId];
               result.children[channelId].value = channel.count;//update count
-              var i = 0;
+              var i = 0,j = 0;
               for(var keyword in channel.keywords){
-                result.children[channelId].children[i].value = channel.keywords[keyword].count;
+                var j = 0;
+                for(j = 0; j < result.children[channelId].children.length; j++){
+                  if(result.children[channelId].children[j].name.toLowerCase() === keyword){
+                    result.children[channelId].children[j].value = channel.keywords[keyword].count;
+                  }
+                }
                 i++;
               }
             }

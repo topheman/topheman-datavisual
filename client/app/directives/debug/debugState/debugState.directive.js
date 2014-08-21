@@ -10,17 +10,20 @@ angular.module('tophemanDatavizApp')
         .directive('debugState', function(persistance, $window) {
 
           return {
-            template: '<p><button ng-click="switchSocketState()">socket : {{state.socket}}</button>&nbsp<button ng-click="switchTwitterState()">twitter : {{state.twitter}}</button></p>',
+            template: '<p><button ng-click="switchSocketState()">socket : {{state.socket}}</button>&nbsp;<button ng-click="switchTwitterState()">twitter : {{state.twitter}}</button>&nbsp<button ng-click="inactiveSocket()">trigger inactivity</button></p>',
             restrict: 'E',
             scope : false,
             link: function(scope, element, attrs) {
               scope.state = persistance.getState();
               var switchSocketState = persistance._debug.state.switchSocketState;
               var switchTwitterState = persistance._debug.state.switchTwitterState;
+              var inactiveSocket = persistance._debug.state.inactiveSocket;
               scope.switchSocketState = switchSocketState;
               scope.switchTwitterState = switchTwitterState;
+              scope.inactiveSocket = inactiveSocket;
               $window.switchSocketState = switchSocketState;
               $window.switchTwitterState = switchTwitterState;
+              $window.inactiveSocket = inactiveSocket;
             }
           };
         });

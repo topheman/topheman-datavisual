@@ -2,10 +2,7 @@
 
 angular.module('tophemanDatavizApp')
   .controller('HeaderCtrl', function ($scope,$location,persistance) {
-    $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
-    }];
+    $scope.menu = [];
 
     $scope.state = persistance.getState();
   

@@ -6,10 +6,16 @@
 
 var errors = require('./components/errors');
 
-module.exports = function(app) {
+module.exports = function(app, socketManager) {
 
   // Insert routes below
   app.use('/api/things', require('./api/thing'));
+
+  // Returns the state of the socket and twitter connexions
+  app.get('/api/state', function(req,res){
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify(socketManager.getState()));
+  });
   
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

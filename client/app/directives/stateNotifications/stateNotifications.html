@@ -1,0 +1,16 @@
+<div growl limit-messages="6" ng-hide="hideGrowls"></div>
+<div class="modal fade" id="modal-disconnected-due-to-inactivity" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Disconnected due to inactivity</h4>
+      </div>
+      <div class="modal-body">
+        <p>You've been disconnected due to too long connexion without any activity, please refresh your page or click on the refresh button if you want to continue using the application.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="reloadPage()">Refresh</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -43,6 +43,10 @@ var SocketsManager = function(io, twitterStreamManager){
       delete sockets[socket.id];
       console.log('>sockets','disconnect',socket.id,Object.keys(sockets).length+' sockets still opened'+' '+(new Date()));
     });
+    socket.on('extend-connexion',function(){
+      sockets[socket.id].time = (new Date()).getTime();
+      console.log('>socket','extend-connexion',socket.id,'time',sockets[socket.id].time,(new Date()));
+    });
   });
   
   var reformatTweet = function(tweet){
@@ -78,7 +82,7 @@ var SocketsManager = function(io, twitterStreamManager){
    * emits to the front an event 
    */
   var cleanSockets = function(){
-    console.log('>calling cleanSockets');
+    console.log('>calling cleanSockets '+(new Date()));
     if(Object.keys(sockets).length > 0){
       var time = (new Date()).getTime();
       for(var socketId in sockets){
@@ -128,6 +132,41 @@ var SocketsManager = function(io, twitterStreamManager){
       launchStream();
     }
     
+  };
+  
+  //public method to know the state of the socket manager
+  this.getState = function(){
+    var time = (new Date()).getTime();
+    var older = null;
+    var younger = null;
+    if(Object.keys(sockets).length > 0){
+      for(var socketId in sockets){
+        if(older === null && younger === null){
+          older = sockets[socketId].time;
+          younger = sockets[socketId].time;
+        }
+        else if(sockets[socketId].time < older){
+          older = sockets[socketId].time;
+        }
+        else if(sockets[socketId].time > younger){
+          younger = sockets[socketId].time;
+        }
+      }
+      older = socketMaxAge+older-time;
+      younger = socketMaxAge+younger-time;
+    }
+    return {
+      "sockets" : {
+        "number" : Object.keys(sockets).length,
+        "nextDisconnexionsIn" : {
+          "older" : older,
+          "younger" : younger
+        }
+      },
+      "twitter" : {
+        "state" : twitterState
+      }
+    };
   };
   
 };

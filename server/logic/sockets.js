@@ -12,4 +12,5 @@ module.exports.launch = function(io){
     "mock": config.mock
   });
   var socketsManager = new SocketsManager(io,twitterStreamManager);
+  return socketsManager;
 };

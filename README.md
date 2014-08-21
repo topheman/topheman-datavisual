@@ -29,3 +29,5 @@ To heroku
 ##Notes
 
 ###Apis
+
+`/api/state` to know the state of the server (how many sockets opened / state of the twitter connexion) - easier than connecting by ssh to watch the logs. Since it's only a POC, this isn't an issue, I wouldn't advise it on a production site.

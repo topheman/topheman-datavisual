@@ -47,6 +47,8 @@ angular.module('tophemanDatavizApp')
             _initData();
             _state.socket = STATE_CONNECTED;
             _state.twitter = msg.twitterState;
+            _socketMaxAgeInfos.socketMaxAge = msg.socketMaxAge;
+            _socketMaxAgeInfos.socketMaxAgeAlertBefore = msg.socketMaxAgeAlertBefore;
             prepareSocketTimeout(msg.socketMaxAge,msg.socketMaxAgeAlertBefore);
           });
 
@@ -138,12 +140,12 @@ angular.module('tophemanDatavizApp')
           
           var getSocketMaxAgeInfos = function(){
             return _socketMaxAgeInfos;
-          }
+          };
           
           var extendConnexion = function(){
-            _socket.emit('extend-connexion', function(msg){
-              
-            });
+            _socket.emit('extend-connexion');
+            console.log('extend-connexion');
+            prepareSocketTimeout(_socketMaxAgeInfos.socketMaxAge,_socketMaxAgeInfos.socketMaxAgeAlertBefore);
           };
 
           /**
@@ -170,6 +172,9 @@ angular.module('tophemanDatavizApp')
                   else {
                     _state.socket = STATE_CONNECTED;
                   }
+                },
+                inactiveSocket: function() {
+                  _state.socket = STATE_DISCONNECTED_DUE_TO_INACTIVITY;
                 },
                 switchTwitterState: function() {
                   if (_state.twitter === STATE_CONNECTED) {

@@ -1,17 +1,17 @@
 [
   {
-    "title" : "Programming languages",
+    "title": "Fruits",
     "description" : "",
-    "track": ["javascript","php","perl","python"]
+    "track": ["kiwi", "orange", "apple", "lemon", "coconut"]
   },
   {
-    "title" : "Javascript frameworks",
+    "title" : "Food companies",
     "description" : "",
-    "track": ["angularjs", "jquery", "backbone", "emberjs"]
+    "track": ["cocacola","pepsi","McDonalds","burgerking"]
   },
   {
-    "title": "HTML5",
+    "title" : "Places to be",
     "description" : "",
-    "track": ["javascript", "nodejs", "html5", "css","angularjs"]
+    "track": ["at home", "at work", "beach"]
   }
 ]
