@@ -1,14 +1,7 @@
 header .container-fluid{
   max-width:768px;
-}
-@media screen and (max-width: 768px) {
-  ul.nav {
-    font-size:90%;
-  }
-  ul.nav > li > a {
-    padding: 10px 2px;
-  }
-  ul.nav-pills > li > a > .badge{
-    margin-left : 0px;
+  li.active > a > .badge{
+    background-color: $badge-active-bg;
+    color: $badge-active-color;
   }
 }

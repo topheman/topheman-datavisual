@@ -1,5 +1,11 @@
 <div class="view-channel">
-  <p>Total for the "{{channelDescription.title}}" channel : {{channel.count}} tweet{{channel.count > 1 ? 's' : ''}}</p>
+
+  <ol class="breadcrumb">
+    <li class="title"><a ng-href="/">Topheman Dataviz</a></li>
+    <li>Channels</li>
+    <li>{{channelDescription.title}} ({{channel.count}} tweet{{channel.count > 1 ? 's' : ''}})</li>
+  </ol>
+  
   <last-tweets data-tweets="channel.lastTweets" data-keywords="channelDescription.track" data-displayed="displayState.lastTweets"></last-tweets>
   <div class="panel panel-default pannel-pie-channel">
     <!-- Default panel contents -->

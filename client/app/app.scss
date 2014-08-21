@@ -27,6 +27,12 @@ $fa-font-path: "/bower_components/font-awesome/fonts";
 }
 @media screen and (max-width: 768px) {
 }
+@media screen and (max-width: 320px) {
+  .view-fade.container{
+    padding-left:5px;
+    padding-right:5px;
+  }
+}
 
 footer.footer {
   opacity:0.8;

@@ -1,22 +1,32 @@
 <state-notifications></state-notifications>
+
 <nav class="navbar navbar-default" role="navigation">
   <div class="container-fluid">
-    <div class="navbar-header pull-left">
-      <a class="navbar-brand logo" ng-href="/">Topheman Datavizualisation<br><span class="badge"></span></a>
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Brand</a>
     </div>
-    <div class="navbar-header pull-right">
-      <p>This will be a short description</p>
-    </div>
-  </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li ng-repeat="item in channelsMenu" ng-class="{active: isActive(item.link)}">
+          <a ng-href="{{item.link}}">
+            <span class="badge pull-right">{{data.channels[$index].count}}</span>
+            {{item.title}}
+          </a>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Github</a></li>
+        <li><a href="#">Twitter</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
 </nav>
-<ul class="nav nav-pills container">
-  <li ng-repeat="item in menu" ng-class="{active: isActive(item.link)}">
-    <a ng-href="{{item.link}}">{{item.title}}</a>
-  </li>
-  <li ng-repeat="item in channelsMenu" ng-class="{active: isActive(item.link)}">
-    <a ng-href="{{item.link}}">
-      <span class="badge pull-right">{{data.channels[$index].count}}</span>
-      {{item.title}}
-    </a>
-  </li>
-</ul>
