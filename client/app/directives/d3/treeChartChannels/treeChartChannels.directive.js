@@ -141,7 +141,7 @@ angular.module('tophemanDatavizApp')
                 links.enter()
                         .append('path');
 
-                links.transition()
+                links
                         .attr('class', 'link')
                         .attr('stroke', 'gray')
                         .attr('fill', 'none')
@@ -153,6 +153,14 @@ angular.module('tophemanDatavizApp')
 
                 rects.enter()
                         .append('rect');
+                
+                rects
+                        .attr('x', function(d) {
+                          return d.y - rectsMargin();
+                        })
+                        .attr('y', function(d) {
+                          return d.x / aspectRatio + treeChartSize.margin - rectsHeight();
+                        });
 
                 rects.transition()
                         .attr('class', function(d) {
@@ -163,12 +171,6 @@ angular.module('tophemanDatavizApp')
                         })
                         .attr('width', function(d) {
                           return rectsSizes[d.name + d.depth] ? rectsSizes[d.name + d.depth] + 2 * rectsMargin() : 0;
-                        })
-                        .attr('x', function(d) {
-                          return d.y - rectsMargin();
-                        })
-                        .attr('y', function(d) {
-                          return d.x / aspectRatio + treeChartSize.margin - rectsHeight();
                         })
                         .style('fill', function(d) {
                           return color(d.depth);
@@ -183,14 +185,16 @@ angular.module('tophemanDatavizApp')
 
                 text.enter()
                         .append('text');
+                
+                text
+                        .attr('transform', function(d) {
+                          return 'translate(' + (d.y) + ',' + (d.x / aspectRatio) + ')';
+                        });
 
                 text.transition()
                         .attr('class', function(d) {
                           rectsSizes[d.name + d.depth] = this.getComputedTextLength();//set the text length
                           return 'node depth-' + d.depth;
-                        })
-                        .attr('transform', function(d) {
-                          return 'translate(' + (d.y) + ',' + (d.x / aspectRatio) + ')';
                         })
                         .text(function(d) {
                           return d.name + '(' + d.value + ')';
