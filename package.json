@@ -15,7 +15,8 @@
     "method-override": "~1.0.0",
     "morgan": "~1.0.0",
     "socket.io": "^1.0.6",
-    "static-favicon": "~1.0.1"
+    "static-favicon": "~1.0.1",
+    "twitter-stream-channels": "^0.2.1"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

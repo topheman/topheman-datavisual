@@ -10,11 +10,11 @@ var TwitterStreamManager = function(options){
     //@todo specify a file for mock via options.tweets and options.singleRun = false
     options.singleRun = false;
     options.tweetDelay = config.mockTweetDelay;
-    TwitterStreamChannels = require('../../../../twitter-stream-channels/main').getMockedClass();
+    TwitterStreamChannels = require('twitter-stream-channels').getMockedClass();
   }
   else{
     console.log('using twitter-stream-channels REAL ONLINE');
-    TwitterStreamChannels = require('../../../../twitter-stream-channels/main');
+    TwitterStreamChannels = require('twitter-stream-channels');
   }
   this.client = new TwitterStreamChannels(options);
 };
