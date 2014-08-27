@@ -11,9 +11,9 @@ angular.module('tophemanDatavizApp', [
 ])
   .config(function ($routeProvider, $locationProvider, growlProvider) {
     var routeResolver = {
-      app: function(persistance) {
+      app: ['persistance',function(persistance) {
         return persistance.isInit();
-      }
+      }]
     };
     $routeProvider
       .when('/', {

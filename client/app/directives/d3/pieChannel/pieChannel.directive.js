@@ -82,7 +82,7 @@ angular.module('tophemanDatavizApp')
 
               //.data() enter/update/exit - bind on the change of the data
               var render = function(channelKeywords) {
-                console.log('render');
+//                console.log('render');
 
                 //preprocess data to d3Data
                 var d3Data = [];

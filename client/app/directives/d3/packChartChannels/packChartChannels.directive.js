@@ -64,7 +64,7 @@ angular.module('tophemanDatavizApp')
 
               //bind the size attributes (will be triggered on resize event)
               var resize = function(width, height) {
-                console.log('resize', width, height);
+//                console.log('resize', width, height);
                 packChartSize.diameter = width;
 
                 svg
@@ -96,7 +96,7 @@ angular.module('tophemanDatavizApp')
                 else {
                   d3Data = d3Helpers.channelToD3TreeData(data, focusedChannelId);
                 }
-                console.log('render',d3Data);
+//                console.log('render',d3Data);
 
                 var nodes = pack.nodes(d3Data);
 

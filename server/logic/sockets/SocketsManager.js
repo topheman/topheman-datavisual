@@ -68,6 +68,10 @@ var SocketsManager = function(io, twitterStreamManager){
       io.emit('twitter:disconnect',{twitterState:twitterState});
     });
     stream.on('connected',function(){
+      //only emit oonce when it was disconnected
+      if(twitterState === STATE_CONNECTED){
+        return false;
+      }
       twitterState = STATE_CONNECTED;
       io.emit('twitter:connected',{twitterState:twitterState});
     });

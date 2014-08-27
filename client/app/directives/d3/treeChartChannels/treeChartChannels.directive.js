@@ -87,7 +87,7 @@ angular.module('tophemanDatavizApp')
 
               //bind the size attributes (will be triggered on resize event)
               var resize = function(width) {
-                console.log('resize', width);
+//                console.log('resize', width);
                 elemCurrentWidth = width;
                 var height = parseInt(width / aspectRatio);
                 svg

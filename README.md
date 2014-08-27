@@ -24,7 +24,13 @@ For the moment the module `twitter-stream-channels` is still in dev and not yet 
 
 ##Deployment
 
-To heroku
+To heroku :
+
+The `grunt build` command will build the site in the `/dist` folder that will be your heroku git repo from where you'll push to deploy the site.
+
+[Configure the Twitter credention as env variables](https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-config-vars)
+
+Aside of the credentials, remember to set the server in production mode `heroku config:set NODE_ENV=production`
 
 ##Notes
 

@@ -1,11 +1,16 @@
 <div class="view-main">
 
   <ol class="breadcrumb">
-    <li class="title"><a ng-href="/">Topheman Dataviz</a></li>
+    <li class="title"><a ng-href="/">Topheman Datavisual</a></li>
     <li>Home ({{data.count}} tweet{{data.count > 1 ? 's' : ''}})</li>
   </ol>
   
-  <p>Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression.</p>
+  <p>The purpose of this site was for me to make an application using <strong>Angular</strong> and <strong>d3</strong> together with real-time data.</p>
+  <p>All the d3 directives (the graphs) that you see are home made in pure d3 and plugged in to Angular - they also are responsive.</p>
+  <p>The data comes from the Twitter Stream API (it's like if the server was directly plugged in to Twitter's, listening to all the tweets matching the specified keywords), is post-processed by <a href="https://github.com/topheman/twitter-stream-channels" title="twitter-stream-channels on github">twitter-stream-channels</a>, a node module I made, and is then transferred in realtime by my node server to the frontend via websockets.</p>
+  <p>[SOMEIMAGE]</p>
+  <p>So, you can see the representation of the keywords for the channels in general or for each channels (just use the menu for that).</p>
+  
   <debug-state ng-if="false"></debug-state>
 
   <div class="panel panel-default pannel-pack-chart">
