@@ -5,7 +5,13 @@
     <li>Channels</li>
     <li>{{channelDescription.title}} ({{channel.count}} tweet{{channel.count > 1 ? 's' : ''}})</li>
   </ol>
-  
+
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <connexion-time></connexion-time>
+    </div>
+  </div>
+
   <last-tweets data-tweets="channel.lastTweets" data-keywords="channelDescription.track" data-displayed="displayState.lastTweets"></last-tweets>
   <div class="panel panel-default pannel-pie-channel">
     <!-- Default panel contents -->
@@ -25,7 +31,7 @@
   </div>
   <footer class="footer">
     <p class="container">
-    ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset
+      ©2014 <a href="http://labs.topheman.com/">labs.topheman.com</a> - Christophe Rosset
     </p>
   </footer>
 </div>

@@ -8,9 +8,6 @@ var errors = require('./components/errors');
 
 module.exports = function(app, socketManager) {
 
-  // Insert routes below
-  app.use('/api/things', require('./api/thing'));
-
   // Returns the state of the socket and twitter connexions
   app.get('/api/state', function(req,res){
     res.setHeader('Content-Type', 'application/json');

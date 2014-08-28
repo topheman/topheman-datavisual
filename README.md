@@ -1,5 +1,9 @@
-topheman-dataviz
-================
+topheman-datavisual
+===================
+
+This is the repository of the [topheman-datavisual project](http://topheman-datavisual.herokuapp.com/).
+
+You can found out more on this blog post.
 
 ##Requirements
 
@@ -15,8 +19,6 @@ topheman-dataviz
 * copy `server/config/local.env.default.js` to `server/config/local.env.js` and set your twitter credentials there (for dev purposes)
 * grunt serve - you're good to go (more in the launch section)
 
-For the moment the module `twitter-stream-channels` is still in dev and not yet published on npm. Some problems with npm link on windows, so I call the module with a relative path temporarily.
-
 ##Launch
 
 * `grunt serve` : will launch in development mocked mode (offline - no connection to twitter)
@@ -28,7 +30,7 @@ To heroku :
 
 The `grunt build` command will build the site in the `/dist` folder that will be your heroku git repo from where you'll push to deploy the site.
 
-[Configure the Twitter credention as env variables](https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-config-vars)
+[Configure the Twitter credention as env variables on heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs#define-config-vars)
 
 Aside of the credentials, remember to set the server in production mode `heroku config:set NODE_ENV=production`
 

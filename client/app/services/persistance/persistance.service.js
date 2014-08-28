@@ -21,7 +21,12 @@ angular.module('tophemanDatavizApp')
           var _state = {
             socket: null,
             socketTimeout: 0,
-            twitter: STATE_CONNECTED
+            twitter: STATE_CONNECTED,
+            connexionTime : {
+              connected : false,
+              previousTimeElapsed : 0,
+              currentStartTime : 0
+            }
           };
           var _socketMaxAgeInfos = {
             socketMaxAge : null,
@@ -38,6 +43,19 @@ angular.module('tophemanDatavizApp')
               _state.socketTimeout++;
             },timeout);
           };
+          
+          var updateStateConnexionTime = function(){
+            if( (_state.twitter !== STATE_CONNECTED || _state.socket !== STATE_CONNECTED) && _state.connexionTime.connected === true){
+              _state.connexionTime.connected = false;
+              _state.connexionTime.previousTimeElapsed = _state.connexionTime.previousTimeElapsed + (new Date()).getTime() - _state.connexionTime.currentStartTime;
+              console.log('updateStateConnexionTime - disconnect',_state);
+            }
+            else if( (_state.twitter === STATE_CONNECTED && _state.socket === STATE_CONNECTED) && _state.connexionTime.connected === false){
+              _state.connexionTime.connected = true;
+              _state.connexionTime.currentStartTime = (new Date()).getTime();
+              console.log('updateStateConnexionTime - connect',_state);
+            }
+          };
 
           //once the client connected
           _socket.on('connected', function(msg) {
@@ -50,6 +68,7 @@ angular.module('tophemanDatavizApp')
             _socketMaxAgeInfos.socketMaxAge = msg.socketMaxAge;
             _socketMaxAgeInfos.socketMaxAgeAlertBefore = msg.socketMaxAgeAlertBefore;
             prepareSocketTimeout(msg.socketMaxAge,msg.socketMaxAgeAlertBefore);
+            updateStateConnexionTime();
           });
 
           //if the client looses the socket connection to the server
@@ -57,6 +76,7 @@ angular.module('tophemanDatavizApp')
             console.log('disconnect', msg);
             _state.socket = STATE_DISCONNECTED;
             //_state.twitter = STATE_DISCONNECTED;
+            updateStateConnexionTime();
           });
 
           //event emitted from the server when a client has been inactive too long
@@ -65,20 +85,24 @@ angular.module('tophemanDatavizApp')
             _socket.disconnect();
             _state.socket = STATE_DISCONNECTED_DUE_TO_INACTIVITY;
             //_state.twitter = STATE_DISCONNECTED;
+            updateStateConnexionTime();
           });
 
           //events to keep track of the state of the twitter stream on the server behing the websocket
           _socket.on('twitter:connect', function(msg) {
             console.log('twitter:connect', msg);
             _state.twitter = msg.twitterState;
+            updateStateConnexionTime();
           });
           _socket.on('twitter:connected', function(msg) {
             console.log('twitter:connected', msg);
             _state.twitter = msg.twitterState;
+            updateStateConnexionTime();
           });
           _socket.on('twitter:disconnect', function(msg) {
             console.log('twitter:disconnect', msg);
             _state.twitter = msg.twitterState;
+            updateStateConnexionTime();
           });
 
           //update on each postprocessed tweet

@@ -1,13 +1,13 @@
 [
   {
-    "title": "Fruits",
-    "description" : "",
-    "track": ["kiwi", "orange", "apple", "lemon", "coconut"]
-  },
-  {
     "title" : "Food companies",
     "description" : "",
     "track": ["cocacola","pepsi","McDonalds","burgerking"]
+  },
+  {
+    "title": "Fruits",
+    "description" : "",
+    "track": ["kiwi", "orange", "apple", "lemon", "coconut"]
   },
   {
     "title" : "Places to be",
