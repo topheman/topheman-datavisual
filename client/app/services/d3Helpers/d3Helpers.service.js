@@ -11,7 +11,7 @@ angular.module('tophemanDatavizApp')
            */
           var createD3TreeDataStatic = function(channelsDescription){
             var result = {};
-            result.name = "Twitter Stream";
+            result.name = "Twitter";
             result.children = [];
             //prepare the depth-1 level based on static channelsDescription
             channelsDescription.forEach(function(channel, channelId){

@@ -7,7 +7,8 @@ angular.module('tophemanDatavizApp', [
   'ngRoute',
   'btford.socket-io',
   'ngAnimate',
-  'angular-growl'
+  'angular-growl',
+  'duScroll'
 ])
   .config(function ($routeProvider, $locationProvider, growlProvider) {
     var routeResolver = {

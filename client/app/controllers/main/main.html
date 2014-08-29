@@ -7,7 +7,7 @@
 
   <div class="panel panel-default">
     <div class="panel-body">
-      <connexion-time></connexion-time>
+      <connexion-time></connexion-time><div class="pull-right"><a href="#infos" du-smooth-scroll duration="1000" title="More about Topheman Datavisual ..."><span class="hidden-xs">About ...</span> <span class="glyphicon glyphicon-info-sign"></span></a></div>
     </div>
   </div>
   
@@ -31,7 +31,7 @@
     <pack-chart-channels data-data="data" ng-if="displayState.packChartChannels"></pack-chart-channels>
   </div>
   
-  <h3>Topheman Datavisual</h3>
+  <h3 id="infos">Topheman Datavisual</h3>
   
   <p>The purpose of this site was for me to make an application using <strong>Angular</strong> and <strong>d3</strong> together with real-time data.</p>
   <p>All the d3 directives (the graphs) that you will see are home made in pure d3 and plugged in to Angular - they also are responsive.</p>
@@ -44,6 +44,12 @@
     <li><a href="https://github.com/topheman/twitter-stream-channels" title="twitter-stream-channels on github">twitter-stream-channels on github</a></li>
     <li>blog post</li>
   </ul>
+  <div>
+    <p>Be aware there is a menu at the top from where you can navigate to the different channels :</p>
+    <ul>
+      <li ng-repeat="channel in channelsDescription"><a  ng-href="{{'/channel/'+$index}}">{{channel.title}}</a></li>
+    </ul>
+  </div>
 
   <div ng-repeat="channel in data.channelsDescription" ng-if="false">
     <h4>{{channel.title}}</h4>

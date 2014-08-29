@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('tophemanDatavizApp')
-        .directive('treeChartChannels', function($window, d3Helpers) {
+        .directive('treeChartChannels', function($window, d3Helpers, $location) {
           return {
-            template: '<style>tree-chart-channels{display:block;}tree-chart-channels svg{display:block;margin : 0 auto;}tree-chart-channels svg text{/**/}tree-chart-channels circle.clickable:hover{stroke : black;stroke-width : 2px;}@media screen and (max-width: 420px){tree-chart-channels text{font-size:80%;}}</style>',
+            template: '<style>tree-chart-channels{display:block;}tree-chart-channels svg{display:block;margin : 0 auto;}tree-chart-channels svg text{/**/}tree-chart-channels text.depth-1:hover{cursor:pointer}tree-chart-channels circle.clickable:hover{stroke : black;stroke-width : 2px;}@media screen and (max-width: 420px){tree-chart-channels text.depth-2{font-size:70%;}tree-chart-channels text.depth-1{font-size:75%;}tree-chart-channels text.depth-1{font-size:80%;}}</style>',
             restrict: 'E',
             scope: {
               aspectRatio: '=',
@@ -153,7 +153,7 @@ angular.module('tophemanDatavizApp')
 
                 rects.enter()
                         .append('rect');
-                
+
                 rects
                         .attr('x', function(d) {
                           return d.y - rectsMargin();
@@ -175,8 +175,8 @@ angular.module('tophemanDatavizApp')
                         .style('fill', function(d) {
                           return color(d.depth);
                         })
-                                .attr('rx',3)
-                                .attr('ry',3)
+                        .attr('rx', 3)
+                        .attr('ry', 3)
                         .attr('stroke', 'black');
 
                 rects.exit().remove();
@@ -184,8 +184,11 @@ angular.module('tophemanDatavizApp')
                 var text = treeChartChannels.texts.selectAll('text').data(nodes);
 
                 text.enter()
-                        .append('text');
-                
+                        .append('text')
+                        .on('click', function(d) {
+                          console.log('toto', $location.path('channel/'+d.channelId));
+                        });
+
                 text
                         .attr('transform', function(d) {
                           return 'translate(' + (d.y) + ',' + (d.x / aspectRatio) + ')';

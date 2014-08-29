@@ -138,3 +138,10 @@ only screen and (                min-resolution: 2dppx) {
     background-size: 32px 32px;
   }
 }
+
+.navbar-default button.navbar-toggle {
+  border-color : #900000;
+}
+.navbar-default .navbar-toggle span.icon-bar{
+  background-color: #900000;
+}
