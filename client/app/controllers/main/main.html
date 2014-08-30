@@ -40,16 +40,18 @@
     Resulting tweets are post-processed by <a href="https://github.com/topheman/twitter-stream-channels" title="twitter-stream-channels on github">twitter-stream-channels</a>, a node module I made, and then are transferred in realtime by my node server to the frontend via websockets.
   </p>
   <ul>
-    <li><a href="https://github.com/topheman/topheman-datavisual" title="topheman-datavisual on github">Sources on github</a></li>
+    <li><a href="https://github.com/topheman/topheman-datavisual" title="topheman-datavisual on github">Sources on github (+deeper explanations)</a></li>
     <li><a href="https://github.com/topheman/twitter-stream-channels" title="twitter-stream-channels on github">twitter-stream-channels on github</a></li>
-    <li>blog post</li>
+    <li><a href="http://dev.topheman.com/datavisualization-with-angular-and-d3-on-the-twitter-stream-api/" title="More on this blog post">blog post</a></li>
   </ul>
-  <div>
-    <p>Be aware there is a <a class="link-to-menu" data-scroll-top-and-show-menu>menu</a> at the top from where you can navigate to the different channels :</p>
-    <ul>
-      <li ng-repeat="channel in channelsDescription"><a  ng-href="{{'/channel/'+$index}}">{{channel.title}}</a></li>
-    </ul>
-  </div>
+  <p>Be aware there is a <a class="link-to-menu" data-scroll-top-and-show-menu>menu</a> at the top from where you can navigate to the different channels :</p>
+  <ul>
+    <li ng-repeat="channel in channelsDescription"><a  ng-href="{{'/channel/'+$index}}">{{channel.title}}</a></li>
+  </ul>
+  <p class="twitter-button-wrapper">
+    <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://topheman-datavisual.herokuapp.com" data-text="Datavisualization with #angular #d3 based on Twitter Stream API data" data-via="topheman" data-size="large" data-count="none">Tweet</a>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+  </p>
 
   <div ng-repeat="channel in data.channelsDescription" ng-if="false">
     <h4>{{channel.title}}</h4>
