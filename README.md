@@ -1,9 +1,14 @@
 topheman-datavisual
 ===================
 
-![image](http://dev.topheman.com/wp-content/uploads/2014/08/angular-topheman-logo-medium.png)
+[![image](http://dev.topheman.com/wp-content/uploads/2014/08/angular-topheman-logo-medium.png)](http://topheman-datavisual.herokuapp.com/)
 
 This is the repository of the [topheman-datavisual project](http://topheman-datavisual.herokuapp.com/), I also made a less technical presentation on [this blog post](http://dev.topheman.com/datavisualization-with-angular-and-d3-on-the-twitter-stream-api).
+
+Summary :
+
+* [Presentation](#presentation)
+* [Instructions](#instructions)
 
 ##Presentation
 
