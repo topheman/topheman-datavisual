@@ -103,3 +103,43 @@ The channels are configured server-side in `server/config/channelsDescription.js
 ####Apis
 
 `/api/state` to know the state of the server (how many sockets opened / state of the twitter connexion) - easier than connecting by ssh to watch the logs. Since it's only a POC, this isn't an issue, I wouldn't advise it on a production site.
+
+####Client dependencies
+
+This is a list of the exact versions used in bower_components (in case there was a mix up with bower)
+
+`bower list`
+
+```
+topheman-datavisual
+├── angular#1.2.22 (1.3.0-rc.0 available)
+├─┬ angular-animate#1.2.22 (1.2.24-build.413+sha.9bf964f available, latest is 1.3.0-rc.0)
+│ └── angular#1.2.22 (latest is 1.3.0-rc.0)
+├─┬ angular-cookies#1.2.22 (1.3.0-rc.0 available)
+│ └── angular#1.2.22
+├─┬ angular-growl-v2#0.7.0
+│ └── angular#1.2.22 (1.3.0-rc.0 available)
+├─┬ angular-mocks#1.2.22 (1.3.0-rc.0 available)
+│ └── angular#1.2.22
+├─┬ angular-resource#1.2.22 (1.3.0-rc.0 available)
+│ └── angular#1.2.22
+├─┬ angular-route#1.2.22 (1.3.0-rc.0 available)
+│ └── angular#1.2.22
+├─┬ angular-sanitize#1.2.22 (1.3.0-rc.0 available)
+│ └── angular#1.2.22
+├─┬ angular-scenario#1.2.22 (1.3.0-rc.0 available)
+│ └── angular#1.2.22
+├─┬ angular-scroll#0.6.1
+│ └── angular#1.2.22 (1.2.24-build.413+sha.9bf964f available, latest is 1.3.0-rc.0)
+├─┬ angular-socket-io#0.6.0
+│ └── angular#1.2.22 (1.2.24-build.413+sha.9bf964f available, latest is 1.3.0-rc.0)
+├─┬ bootstrap#3.1.1 (latest is 3.2.0)
+│ └── jquery#1.11.1 (2.1.1 available)
+├── bootstrap-sass-official#3.1.1+2 (latest is 3.2.0+1)
+├── d3#3.4.11
+├── es5-shim#3.0.2 (latest is 4.0.3)
+├── font-awesome#4.1.0 (4.2.0 available)
+├── jquery#1.11.1 (latest is 2.1.1)
+├── json3#3.3.2
+└── lodash#2.4.1
+```
