@@ -3,7 +3,30 @@
 angular.module('tophemanDatavizApp')
         .directive('treeChartChannels', function($window, d3Helpers, $location) {
           return {
-            template: '<style>tree-chart-channels{display:block;}tree-chart-channels svg{display:block;margin : 0 auto;}tree-chart-channels svg text{/**/}tree-chart-channels text.depth-1:hover,tree-chart-channels text.depth-2:hover{cursor:pointer}tree-chart-channels circle.clickable:hover{stroke : black;stroke-width : 2px;}@media screen and (max-width: 420px){tree-chart-channels text.depth-2{font-size:70%;}tree-chart-channels text.depth-1{font-size:75%;}tree-chart-channels text.depth-1{font-size:80%;}}</style>',
+            template: [
+              '<style>',
+              'tree-chart-channels{display:block;}',
+              'tree-chart-channels svg{display:block;margin : 0 auto;}',
+              'tree-chart-channels svg text{/**/}',
+              'tree-chart-channels text.depth-1:hover,tree-chart-channels text.depth-2:hover{cursor:pointer}',
+              'tree-chart-channels circle.clickable:hover{stroke : black;stroke-width : 2px;}',
+              '@media screen and (max-width: 420px){',
+                'tree-chart-channels text.depth-2{font-size:50%;}',
+                'tree-chart-channels text.depth-1{font-size:65%;}',
+                'tree-chart-channels text.depth-0{font-size:70%;}',
+              '}',
+              '@media screen and (max-width: 760px) and (min-width: 420px){',
+                'tree-chart-channels text.depth-2{font-size:70%;}',
+                'tree-chart-channels text.depth-1{font-size:75%;}',
+                'tree-chart-channels text.depth-0{font-size:80%;}',
+              '}',
+              '@media screen and (min-width: 760px){',
+                'tree-chart-channels text.depth-2{font-size:80%;}',
+                'tree-chart-channels text.depth-1{font-size:85%;}',
+                'tree-chart-channels text.depth-0{font-size:90%;}',
+              '}',
+              '</style>'
+            ].join(''),
             restrict: 'E',
             scope: {
               aspectRatio: '=',
