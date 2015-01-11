@@ -31,7 +31,7 @@ module.exports = function(app) {
   app.use(function(req,res,next){
     res.set({
       "X-Charlie-en" : "I am Charlie.",
-      "X-Charlie-fr" : "Je suis Charlie"
+      "X-Charlie-fr" : "Je suis Charlie."
     });
     return next();
   });
