@@ -1,32 +1,17 @@
 [
   {
-    "title" : "Everybody's Charlie",
+    "title" : "Food companies",
     "description" : "",
-    "track": [
-      "JeSuisCharlie",
-      "NousSommesCharlie"
-    ]
+    "track": ["cocacola","pepsi","McDonalds","burgerking"]
   },
   {
-    "title": "Free",
+    "title": "Fruits",
     "description" : "",
-    "track": [
-      "liberté d'expression",
-      "freedomofspeech",
-      "freedom of speech",
-      "notafraid",
-      "not afraid",
-      "memepaspeur",
-      "meme pas peur"
-    ]
+    "track": ["kiwi", "orange", "apple", "lemon", "coconut"]
   },
   {
-    "title": "Will go on",
+    "title" : "Places to be",
     "description" : "",
-    "track": [
-      "soutien",
-      "CharlieHebdo",
-      "Charlie Hebdo"
-    ]
+    "track": ["at home", "at work", "beach"]
   }
 ]

@@ -26,15 +26,6 @@ module.exports = function(app) {
   app.use(bodyParser.json());
   app.use(methodOverride());
   app.use(cookieParser());
-  
-  //#jesuischarlie
-  app.use(function(req,res,next){
-    res.set({
-      "X-Charlie-en" : "I am Charlie.",
-      "X-Charlie-fr" : "Je suis Charlie."
-    });
-    return next();
-  });
 
   if ('production' === env) {
     app.use(favicon(path.join(config.root, 'public', 'favicon.ico')));
