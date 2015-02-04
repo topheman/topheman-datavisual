@@ -1,6 +1,6 @@
 {
   "name": "topheman-dataviz",
-  "version": "0.2.0",
+  "version": "0.2.1-charlie",
   "main": "server/app.js",
   "dependencies": {
     "body-parser": "~1.0.0",
