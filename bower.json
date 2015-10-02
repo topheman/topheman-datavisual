@@ -2,29 +2,29 @@
   "name": "topheman-dataviz",
   "version": "0.0.0",
   "dependencies": {
-    "angular": ">=1.2.*",
-    "json3": "~3.3.1",
-    "es5-shim": "~3.0.1",
-    "jquery": "~1.11.0",
-    "bootstrap-sass-official": "~3.1.1",
-    "bootstrap": "~3.1.1",
-    "angular-resource": ">=1.2.*",
-    "angular-cookies": ">=1.2.*",
-    "angular-sanitize": ">=1.2.*",
-    "angular-route": ">=1.2.*",
-    "font-awesome": ">=4.1.0",
-    "lodash": "~2.4.1",
-    "angular-socket-io": "~0.6.0",
-    "angular-animate": "~1.2.21",
-    "d3": "~3.4.11",
-    "angular-growl-v2": "~0.7.0",
-    "angular-scroll": "~0.6.1"
+    "angular": "1.2.22",
+    "json3": "3.3.2",
+    "es5-shim": "3.0.2",
+    "jquery": "1.11.1",
+    "bootstrap-sass-official": "3.1.1+2",
+    "bootstrap": "3.1.1",
+    "angular-resource": "1.2.22",
+    "angular-cookies": "1.2.22",
+    "angular-sanitize": "1.2.22",
+    "angular-route": "1.2.22",
+    "font-awesome": "4.1.0",
+    "lodash": "2.4.1",
+    "angular-socket-io": "0.6.0",
+    "angular-animate": "1.2.22",
+    "d3": "3.4.11",
+    "angular-growl-v2": "0.7.0",
+    "angular-scroll": "0.6.1"
   },
   "devDependencies": {
-    "angular-mocks": ">=1.2.*",
-    "angular-scenario": ">=1.2.*"
+    "angular-mocks": "1.2.22",
+    "angular-scenario": "1.2.22"
   },
   "resolutions": {
-    "angular": "~1.2.6"
+    "angular": "1.2.22"
   }
 }
