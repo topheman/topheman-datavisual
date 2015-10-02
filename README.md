@@ -67,15 +67,15 @@ But one step at a time (and still, I started this project to practice Angular an
 
 ###Requirements
 
-* node
+* node (works on both v0.12.x & v4.x)
 * grunt, bower
 * sass
 * (optional) yeoman generator-angular-fullstack - scaffolded with [yeoman generator-angular-fullstack v2.05](https://github.com/DaftMonk/generator-angular-fullstack/tree/v2.0.5)
 
 ###Install
 
-* npm install
-* bower install
+* `npm install`
+* `bower install`
 * copy `server/config/local.env.default.js` to `server/config/local.env.js` and set your twitter credentials there (for dev purposes)
 * grunt serve - you're good to go (more in the launch section)
 
@@ -106,7 +106,7 @@ The channels are configured server-side in `server/config/channelsDescription.js
 
 ####Client dependencies
 
-This is a list of the exact versions used in bower_components (in case there was a mix up with bower)
+This is a list of the exact versions used in bower_components (in case there was a mix up with bower). I freezed the bower.json to avoid conflicts and regressions.
 
 `bower list`
 
