@@ -7,3 +7,4 @@ dist
 server/config/local.env.js
 /nbproject/private/
 /nbproject
+.idea
