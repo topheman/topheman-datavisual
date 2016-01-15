@@ -67,7 +67,7 @@ But one step at a time (and still, I started this project to practice Angular an
 
 ###Requirements
 
-* node (works on both v0.12.x & v4.x)
+* node (works on node v0.12, v4 & v5)
 * grunt, bower
 * sass
 * (optional) yeoman generator-angular-fullstack - scaffolded with [yeoman generator-angular-fullstack v2.05](https://github.com/DaftMonk/generator-angular-fullstack/tree/v2.0.5)
