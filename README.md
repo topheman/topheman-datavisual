@@ -10,15 +10,15 @@ Summary :
 * [Presentation](#presentation)
 * [Instructions](#instructions)
 
-##Presentation
+## Presentation
 
 The goal of this project was to mix **Angular** and **d3** - a JavaScript framework and a datavisualization library that should work very well together.
 
-###twitter-stream-channels
+### twitter-stream-channels
 
 Before even starting on the frontend part, I built [twitter-stream-channels](http://labs.topheman.com/twitter-stream-channels/), a node module that handles the post-processing of the tweets comming from the [Twitter Stream API](http://labs.topheman.com/twitter-stream-channels/) (I managed to include a built-in mock version of the module to work offline due to the connexion limits of Twitter).
 
-###constraints / backend / connexions management
+### constraints / backend / connexions management
 
 The Twitter Stream API has a [rate limit](https://dev.twitter.com/docs/rate-limiting/1.1). Simply put, you have 15 minutes windows : if you make too much connexions/disconnexions you'll be stall for the end of the window.
 
@@ -39,7 +39,7 @@ Possible states :
 * websocket disconnected / Twitter Stream connected (your browser has been forced to disconnect due to inactivity or is experiencing network problem but the node server is still up and connected to Twitter)
 * websocket disconnected / Twitter Stream disconnected (your browser is disconnected, the node server is disconnected from Twitter because no more people on the websockets - the process can be shut down)
 
-###frontend
+### frontend
 
 Finally ! We're talking about frontend, Angular, d3 and stuff ! Yeah, when I had this project in mind, I didn't think about doing so much backend ...
 
@@ -54,7 +54,7 @@ I made four kinds of d3 directives : tree chart, pack chart, pie chart and bar c
 
 Whatever, the first thing you must understand in d3 are the enter/update/remove phases.
 
-###next
+### next
 
 The app can be improved. Currently, there is no persistance of the data on the backend and the app can't be scaled (the Twitter Stream is on the same process as socket.io - you can't open multiple streams on same Twitter API key).
 
@@ -63,28 +63,28 @@ A cool thing would be to add some MongoDB to store the tweets, Redis to share th
 But one step at a time (and still, I started this project to practice Angular and d3 ;-) ) ...
 
 
-##Instructions
+## Instructions
 
-###Requirements
+### Requirements
 
 * node (works on node v0.12, v4 & v5)
 * grunt, bower
 * sass
 * (optional) yeoman generator-angular-fullstack - scaffolded with [yeoman generator-angular-fullstack v2.05](https://github.com/DaftMonk/generator-angular-fullstack/tree/v2.0.5)
 
-###Install
+### Install
 
 * `npm install`
 * `bower install`
 * copy `server/config/local.env.default.js` to `server/config/local.env.js` and set your twitter credentials there (for dev purposes)
 * grunt serve - you're good to go (more in the launch section)
 
-###Launch
+### Launch
 
 * `grunt serve` : will launch in development mocked mode (offline - no connection to twitter)
 * `grunt serve:online` : will launch with a connection to twitter, using the credentials you set to open the stream to twitter.
 
-###Deployment
+### Deployment
 
 To heroku :
 
@@ -94,17 +94,17 @@ The `grunt build` command will build the site in the `/dist` folder that will be
 
 Aside of the credentials, remember to set the server in production mode `heroku config:set NODE_ENV=production`
 
-###Notes
+### Notes
 
-####Channels
+#### Channels
 
 The channels are configured server-side in `server/config/channelsDescription.json`. This configuration is retrieved at the first websocket connexion between the browser and the nodejs server.
 
-####Apis
+#### Apis
 
 `/api/state` to know the state of the server (how many sockets opened / state of the twitter connexion) - easier than connecting by ssh to watch the logs. Since it's only a POC, this isn't an issue, I wouldn't advise it on a production site.
 
-####Client dependencies
+#### Client dependencies
 
 This is a list of the exact versions used in bower_components (in case there was a mix up with bower). I freezed the bower.json to avoid conflicts and regressions.
 
